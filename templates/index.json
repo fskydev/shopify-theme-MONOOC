@@ -2,9 +2,11 @@
   "sections": {
     "promo-grid": {
       "type": "promo-grid",
+      "disabled": true,
       "blocks": {
         "12639fd5-694e-414f-971e-cee8dcb5979c": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify:\/\/shop_images\/004.gif",
             "link": "",
@@ -24,25 +26,24 @@
     },
     "slideshow": {
       "type": "slideshow",
-      "disabled": true,
       "blocks": {
         "slideshow-1": {
           "type": "image",
           "settings": {
             "top_subheading": "",
-            "title": "Treat memorie\nas gifts",
-            "title_size": 50,
+            "title": "Making a gift \nof memories",
+            "title_size": 71,
             "subheading": "",
-            "link": "shopify:\/\/collections\/all",
+            "link": "",
             "link_text": "",
             "link_2": "shopify:\/\/collections\/all",
-            "link_text_2": "Build it now",
-            "color_accent": "#000000",
-            "text_align": "vertical-bottom horizontal-left",
-            "image": "shopify:\/\/shop_images\/003.gif",
-            "image_mobile": "shopify:\/\/shop_images\/003.gif",
+            "link_text_2": "Creat one gift now",
+            "color_accent": "#ffff94",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify:\/\/shop_images\/banner3.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/banner3.jpg",
             "overlay_opacity": 0,
-            "focal_point": "top center"
+            "focal_point": "center center"
           }
         },
         "slideshow-0": {
@@ -79,8 +80,31 @@
         "autoplay_speed": 7
       }
     },
+    "16323000876f40a683": {
+      "type": "promo-grid",
+      "blocks": {
+        "2b9121eb-ffe4-462f-9636-15a1533e93d4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/1_b96ecb36-e577-4762-aa80-55ee7d2f326c.jpg",
+            "link": "",
+            "width": "100"
+          }
+        }
+      },
+      "block_order": [
+        "2b9121eb-ffe4-462f-9636-15a1533e93d4"
+      ],
+      "settings": {
+        "full_width": false,
+        "gutter_size": 20,
+        "space_above": true,
+        "space_below": true
+      }
+    },
     "rich-text": {
       "type": "rich-text",
+      "disabled": true,
       "blocks": {
         "heading": {
           "type": "heading",
@@ -109,10 +133,10 @@
     "163151295847c5ff34": {
       "type": "featured-collection",
       "settings": {
-        "title": "The Jewelry",
-        "home_featured_products": "all-necklaces",
-        "per_row": 4,
-        "rows": 2,
+        "title": "The CURATEED gIFTS",
+        "home_featured_products": "curated-gifts",
+        "per_row": 3,
+        "rows": 3,
         "mobile_scrollable": true,
         "view_all": true,
         "divider": false
@@ -132,21 +156,21 @@
         "7256497e-f9b7-402f-a8d8-1abcc0ba3d1d": {
           "type": "advanced",
           "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
-            "cta_text1": "Shop This",
-            "cta_link1": "",
-            "cta_text2": "Shop All",
+            "subheading": "",
+            "heading": "Start a jewelry journey",
+            "textarea": "No woman will say my jewelry is enough",
+            "cta_text1": "Pick Your Jewelry",
+            "cta_link1": "shopify:\/\/collections\/the-jewelry",
+            "cta_text2": "",
             "cta_link2": "",
-            "image": "shopify:\/\/shop_images\/banner3.jpg",
+            "image": "shopify:\/\/shop_images\/003.gif",
             "video_url": "",
             "width": "100",
-            "height": 500,
+            "height": 700,
             "text_size": 120,
             "text_align": "vertical-center horizontal-center",
             "focal_point": "center",
-            "color_accent": "rgba(0,0,0,0)",
+            "color_accent": "#ffff94",
             "boxed": false,
             "framed": false
           }
@@ -157,8 +181,8 @@
         "7256497e-f9b7-402f-a8d8-1abcc0ba3d1d"
       ],
       "settings": {
-        "full_width": false,
-        "gutter_size": 20,
+        "full_width": true,
+        "gutter_size": 40,
         "space_above": false,
         "space_below": false
       }
@@ -166,100 +190,13 @@
     "16316039304c4ed66d": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured collection",
-        "home_featured_products": "",
+        "title": "Featured Jewelry",
+        "home_featured_products": "the-jewelry",
         "per_row": 4,
         "rows": 2,
         "mobile_scrollable": true,
         "view_all": true,
         "divider": false
-      }
-    },
-    "1631517355d1bc1de6": {
-      "type": "text-and-image",
-      "disabled": true,
-      "settings": {
-        "image": "shopify:\/\/shop_images\/figure.jpg",
-        "image_width": 700,
-        "subtitle": "",
-        "title": "WOW ! IT'S AMAZING !",
-        "text": "<p>Introducing your personal <\/p><p>gifting assiatant<\/p>",
-        "button_label": "",
-        "button_link": "",
-        "button_style": "primary",
-        "align_text": "left",
-        "layout": "right",
-        "divider": false
-      }
-    },
-    "1631516755d9754036": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "title": "Featured collection",
-        "home_featured_products": "",
-        "per_row": 4,
-        "rows": 2,
-        "mobile_scrollable": true,
-        "view_all": true,
-        "divider": true
-      }
-    },
-    "featured-collection": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "title": "Featured collection",
-        "home_featured_products": "",
-        "per_row": 4,
-        "rows": 1,
-        "mobile_scrollable": true,
-        "view_all": true,
-        "divider": false
-      }
-    },
-    "background-image-text": {
-      "type": "background-image-text",
-      "disabled": true,
-      "settings": {
-        "subtitle": "Impressive",
-        "title": "Large image with text box",
-        "text": "<p>Pair large text with a full-width image to draw attention to an important detail of your brand or product line.<\/p>",
-        "button_label": "",
-        "button_link": "shopify:\/\/collections\/all",
-        "focal_point": "80% 0",
-        "layout": "left",
-        "height": 750,
-        "framed": false,
-        "parallax": true
-      }
-    },
-    "blog-posts": {
-      "type": "blog-posts",
-      "disabled": true,
-      "settings": {
-        "title": "From the journal",
-        "blog": "news",
-        "post_limit": 3,
-        "blog_show_tags": false,
-        "blog_show_date": true,
-        "blog_show_comments": false,
-        "blog_show_author": false,
-        "view_all": true,
-        "blog_image_size": "wide",
-        "divider": false
-      }
-    },
-    "map": {
-      "type": "map",
-      "disabled": true,
-      "settings": {
-        "map_title": "Our retail store",
-        "address": "<p>301 Front St W<br\/>Toronto, Canada<\/p><p>Mon - Fri, 8:30am - 10:30pm<br\/>Saturday, 8:30am - 10:30pm<br\/>Sunday, 8:30am - 10:30pm<\/p>",
-        "map_address": "301 Front St W, Toronto, ON M5V 2T6",
-        "api_key": "",
-        "show_button": true,
-        "background_image_position": "center center"
       }
     },
     "1631604581056c6316": {
@@ -268,14 +205,14 @@
         "1631604581056c6316-0": {
           "type": "advanced",
           "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "subheading": "",
+            "heading": "Pick your favorite jewelry",
+            "textarea": "Up to dozens of styles to meet all occasions",
             "cta_text1": "Shop This",
             "cta_link1": "",
-            "cta_text2": "Shop All",
+            "cta_text2": "",
             "cta_link2": "",
-            "image": "shopify:\/\/shop_images\/figure.jpg",
+            "image": "shopify:\/\/shop_images\/9148AE5F-FEEF-4c38-9827-5194AEDDA4F4.png",
             "video_url": "",
             "width": "50",
             "height": 500,
@@ -290,13 +227,14 @@
         "1631604581056c6316-1": {
           "type": "advanced",
           "settings": {
-            "subheading": "Limited time",
-            "heading": "Announce your promotion",
-            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "subheading": "",
+            "heading": "Pick your favorite Gift Card",
+            "textarea": "Come and write a blessing to your loved ones",
             "cta_text1": "Shop This",
             "cta_link1": "",
-            "cta_text2": "Shop All",
+            "cta_text2": "",
             "cta_link2": "",
+            "image": "shopify:\/\/shop_images\/lALPDhJzxkjxa97NAmzNAxY_790_620.png",
             "video_url": "",
             "width": "50",
             "height": 500,
@@ -320,45 +258,39 @@
         "space_below": true
       }
     },
-    "1631604635c7e73779": {
-      "type": "logo-list",
-      "disabled": true,
+    "1631676794e9609412": {
+      "type": "rich-text",
       "blocks": {
-        "1631604635c7e73779-1": {
-          "type": "logo_image",
+        "1631676794e9609412-0": {
+          "type": "heading",
           "settings": {
-            "link": ""
-          }
-        },
-        "1631604635c7e73779-2": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        },
-        "1631604635c7e73779-0": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
-          }
-        },
-        "1631604635c7e73779-3": {
-          "type": "logo_image",
-          "settings": {
-            "link": ""
+            "title": "Perfectly Proportioned Personalized Presents"
           }
         }
       },
       "block_order": [
-        "1631604635c7e73779-1",
-        "1631604635c7e73779-2",
-        "1631604635c7e73779-0",
-        "1631604635c7e73779-3"
+        "1631676794e9609412-0"
       ],
       "settings": {
-        "title": "",
-        "logo_opacity": 76,
+        "align_text": "center",
+        "narrow_column": true,
         "divider": false
+      }
+    },
+    "16316886901587d2c8": {
+      "type": "background-image-text",
+      "settings": {
+        "subtitle": "INSTANT HAPPY TEARS",
+        "title": "Make someone's day in minutes.",
+        "text": "<p><br\/><br\/><\/p>",
+        "button_label": "BROWSE GIFTS AND DESIGNS",
+        "button_link": "shopify:\/\/pages\/contact-us",
+        "image": "shopify:\/\/shop_images\/7.png",
+        "focal_point": "center",
+        "layout": "left",
+        "height": 550,
+        "framed": false,
+        "parallax": false
       }
     },
     "1631604658e00b4e40": {
@@ -368,8 +300,9 @@
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
+            "testimonial": "<p>I sent a Monooc gift box to my wife on her first anniversary and she really loved this unique gift, every detail of the design was a surprise to her!<\/p>",
+            "image": "shopify:\/\/shop_images\/images.jpg",
+            "author": "Bertran.D",
             "author_info": "Los Angeles, CA"
           }
         },
@@ -377,36 +310,40 @@
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>I got a custom gift box from Monooc for my bestie as a wedding gift, and it was more thoughtful than all the others! She told me it was the best gift she ever received.<\/p>",
+            "image": "shopify:\/\/shop_images\/31ebc4370166f179d3bfdc3e4fceb5b0.jpg",
+            "author": "Alice.M",
+            "author_info": "NewYork,USA"
           }
         },
         "1631604658e00b4e40-2": {
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>At Monooc I can easily complete the process of creating original gifts, which makes me very happy! And the results are usually very, very good!<\/p>",
+            "image": "shopify:\/\/shop_images\/images_1.jpg",
+            "author": "Anita.C",
+            "author_info": "Boston, USA"
           }
         },
         "1631604658e00b4e40-3": {
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>I gave my mom a Monooc gift box for Mother's Day and she was thrilled with every photo that brought back memories!<\/p>",
+            "image": "shopify:\/\/shop_images\/unnamed.jpg",
+            "author": "Amy.D",
+            "author_info": "Austin.USA"
           }
         },
         "1631604658e00b4e40-4": {
           "type": "testimonial",
           "settings": {
             "icon": "5-stars",
-            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.<\/p>",
-            "author": "Author's name",
-            "author_info": "Los Angeles, CA"
+            "testimonial": "<p>A Monooc gift box was the best birthday gift I gave to my father, mother, sister and brother and everyone loved it, the unique design is really impressive!<\/p>",
+            "image": "shopify:\/\/shop_images\/images_2.jpg",
+            "author": "Camilla.Y",
+            "author_info": "Boston, USA"
           }
         }
       },
@@ -460,18 +397,14 @@
   "order": [
     "promo-grid",
     "slideshow",
+    "16323000876f40a683",
     "rich-text",
     "163151295847c5ff34",
     "promo-grid2",
     "16316039304c4ed66d",
-    "1631517355d1bc1de6",
-    "1631516755d9754036",
-    "featured-collection",
-    "background-image-text",
-    "blog-posts",
-    "map",
     "1631604581056c6316",
-    "1631604635c7e73779",
+    "1631676794e9609412",
+    "16316886901587d2c8",
     "1631604658e00b4e40",
     "1631608090200c7e6c"
   ]

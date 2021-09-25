@@ -1,0 +1,16 @@
+{% comment %}
+The Box Builder requires this template to redirect customers from your builder products to the builder itself. DO NOT MODIFY OR DELETE.
+{% endcomment %}
+
+{% assign id = product.metafields.box_builder.builderId %}
+{% assign url = '/apps/builder?b=' | append: id %}
+<div style="text-align: center;width:100%;height:640px;padding-top:200px;">
+	<img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.0' width='20px' height='20px' viewBox='0 0 128 128' xml:space='preserve'%3e%3cg%3e%3clinearGradient id='linear-gradient'%3e%3cstop offset='0%25' stop-color='%23ffffff' fill-opacity='0'/%3e%3cstop offset='100%25' stop-color='%237d7d7d' fill-opacity='1'/%3e%3c/linearGradient%3e%3cpath d='M63.85 0A63.85 63.85 0 1 1 0 63.85 63.85 63.85 0 0 1 63.85 0zm.65 19.5a44 44 0 1 1-44 44 44 44 0 0 1 44-44z' fill='url(%23linear-gradient)' fill-rule='evenodd'/%3e%3canimateTransform attributeName='transform' type='rotate' from='0 64 64' to='360 64 64' dur='1080ms' repeatCount='indefinite'%3e%3c/animateTransform%3e%3c/g%3e%3c/svg%3e"/>
+</div>
+<script>
+  window.top.location.replace("{{ url }}");
+</script>
+
+{% comment %}
+The Box Builder requires this template to redirect customers from your builder products to the builder itself. DO NOT MODIFY OR DELETE.
+{% endcomment %}

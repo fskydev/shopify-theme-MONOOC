@@ -8,58 +8,79 @@
           "settings": {
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-          }
-        },
-        "description": {
-          "type": "description",
+        "separator": {
+          "type": "separator",
           "settings": {
           }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-          }
-        },
-        "inventory_status": {
-          "type": "inventory_status",
-          "settings": {
-          }
-        },
-        "share": {
-          "type": "share",
-          "settings": {
+            "variant_labels": true,
+            "picker_type": "button",
+            "color_swatches": false
           }
         },
         "sales_point": {
           "type": "sales_point",
           "settings": {
+            "icon": "globe",
+            "text": "Free shipping on all orders over $49"
+          }
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "settings": {
+            "inventory_threshold": 10,
+            "inventory_transfers_enable": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "surface_pickup_enable": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "is_tab": false
           }
         },
         "tab": {
           "type": "tab",
           "settings": {
+            "title": "FREE SHIPPING & RETURN",
+            "content": "",
+            "page": "free-shipping-return"
           }
         },
-        "text": {
-          "type": "text",
+        "081f0586-ea7f-4151-b1d3-445388965e48": {
+          "type": "tab",
           "settings": {
+            "title": "ONE YEAR WARRANTY",
+            "content": "",
+            "page": "one-year-warranty"
           }
         },
-        "separator": {
-          "type": "separator",
+        "3f9b9eef-801c-47d0-8ce6-3c1bfbe8e4f0": {
+          "type": "tab",
           "settings": {
+            "title": "HOW TO CARE",
+            "content": "<p> <\/p>",
+            "page": "jewelry-care"
           }
         },
         "contact": {
           "type": "contact",
+          "settings": {
+            "title": "Ask a question",
+            "phone": true
+          }
+        },
+        "share": {
+          "type": "share",
           "settings": {
           }
         }
@@ -73,77 +94,46 @@
         "buy_buttons",
         "description",
         "tab",
+        "081f0586-ea7f-4151-b1d3-445388965e48",
+        "3f9b9eef-801c-47d0-8ce6-3c1bfbe8e4f0",
         "contact",
         "share"
       ],
       "settings": {
+        "sku_enable": false,
+        "image_position": "left",
+        "image_size": "medium",
+        "product_zoom_enable": true,
+        "thumbnail_position": "beside",
+        "thumbnail_arrows": false,
+        "mobile_layout": "partial",
+        "enable_video_looping": true,
+        "product_video_style": "muted"
       }
     },
     "sub": {
       "type": "product-full-width",
       "disabled": true,
       "settings": {
+        "max_width": false
       }
     },
     "product-recommendations": {
       "type": "product-recommendations",
       "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
       }
     },
     "recently-viewed": {
       "type": "recently-viewed",
       "settings": {
+        "recent_count": 5
       }
     },
     "collection-return": {
       "type": "collection-return",
-      "settings": {
-      }
-    },
-    "background-image-text": {
-      "type": "background-image-text",
-      "settings": {
-        "title": "About your brand",
-        "parallax": false
-      }
-    },
-    "text-and-image": {
-      "type": "text-and-image",
-      "settings": {
-        "title": "About your brand"
-      }
-    },
-    "text-and-image2": {
-      "type": "text-and-image",
-      "settings": {
-        "title": "About your brand",
-        "layout": "left"
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonials-0": {
-          "type": "testimonial",
-          "settings": {
-          }
-        },
-        "testimonials-1": {
-          "type": "testimonial",
-          "settings": {
-          }
-        },
-        "testimonials-2": {
-          "type": "testimonial",
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "testimonials-0",
-        "testimonials-1",
-        "testimonials-2"
-      ],
       "settings": {
       }
     }
@@ -151,10 +141,6 @@
   "order": [
     "main",
     "sub",
-    "background-image-text",
-    "text-and-image",
-    "text-and-image2",
-    "testimonials",
     "product-recommendations",
     "recently-viewed",
     "collection-return"

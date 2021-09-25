@@ -11,18 +11,19 @@
     "color_cart_dot": "#ff4f33",
     "color_small_image_bg": "#ffffff",
     "color_large_image_bg": "#0f0f0f",
-    "color_header": "#ffffff",
+    "color_header": "#fff1e6",
     "color_header_text": "#000000",
-    "color_announcement": "#0f0f0f",
-    "color_announcement_text": "#ffffff",
-    "color_footer": "#ffffff",
-    "color_footer_text": "#000000",
+    "color_announcement": "#d4ece6",
+    "color_announcement_text": "#000000",
+    "color_footer": "#1c1d1d",
+    "color_footer_text": "#ffffff",
     "color_drawer_background": "#ffffff",
     "color_drawer_text": "#000000",
     "color_drawer_border": "#e8e8e1",
     "color_drawer_button": "#111111",
     "color_drawer_button_text": "#ffffff",
     "color_modal_overlays": "#e6e6e6",
+    "color_image_text": "#000000",
     "color_image_overlay": "#000000",
     "color_image_overlay_opacity": 10,
     "color_image_overlay_text_shadow": 20,
@@ -46,9 +47,14 @@
     "button_style": "square",
     "icon_weight": "2px",
     "icon_linecaps": "miter",
+    "quick_shop_enable": true,
     "quick_shop_text": "Quick view",
     "product_grid_image_size": "natural",
-    "product_hover_image": false,
+    "product_grid_image_fill": false,
+    "product_hover_image": true,
+    "enable_swatches": false,
+    "swatch_style": "round",
+    "enable_product_reviews": true,
     "collection_grid_style": "overlaid-box",
     "collection_grid_shape": "square",
     "collection_grid_image": "product",
@@ -63,7 +69,9 @@
     "cart_terms_conditions_enable": false,
     "social_facebook_link": "https:\/\/www.facebook.com\/MonoocOfficial",
     "social_instagram_link": "https:\/\/www.instagram.com\/monoocofficial\/",
+    "favicon": "shopify:\/\/shop_images\/NW_LOGO.png",
     "search_enable": true,
+    "checkout_logo_image": "shopify:\/\/shop_images\/payment_59571ae3-ffab-4927-b09d-7a4f8b587b02.png",
     "checkout_logo_position": "left",
     "checkout_logo_size": "small",
     "checkout_body_background_color": "#ffffff",
@@ -111,7 +119,7 @@
           "1524770296206"
         ],
         "settings": {
-          "main_menu_link_list": "main-menu",
+          "main_menu_link_list": "navigation-for-gift",
           "mega_menu_images": true,
           "main_menu_alignment": "left-center",
           "header_style": "sticky",
@@ -132,7 +140,7 @@
           "1494301487048": {
             "type": "logo_social",
             "settings": {
-              "logo": "shopify:\/\/shop_images\/N_LOGO_2.png",
+              "logo": "shopify:\/\/shop_images\/91-1.png",
               "desktop_logo_height": 45,
               "container_width": 15
             }
@@ -224,6 +232,7 @@
         "blocks": {
           "footer-promotions-0": {
             "type": "promotion",
+            "disabled": true,
             "settings": {
               "enable_image": true,
               "title": "Site-wide promotion",
@@ -234,6 +243,7 @@
           },
           "footer-promotions-1": {
             "type": "promotion",
+            "disabled": true,
             "settings": {
               "enable_image": true,
               "title": "Site-wide promotion",
@@ -244,6 +254,7 @@
           },
           "footer-promotions-2": {
             "type": "promotion",
+            "disabled": true,
             "settings": {
               "enable_image": true,
               "title": "Site-wide promotion",

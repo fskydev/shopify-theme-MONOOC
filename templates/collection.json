@@ -3,6 +3,58 @@
     "collection-header": {
       "type": "collection-header",
       "settings": {
+        "enable": false,
+        "collection_image_enable": false,
+        "parallax": false
+      }
+    },
+    "promo-grid": {
+      "type": "promo-grid",
+      "disabled": true,
+      "blocks": {
+        "banner": {
+          "type": "banner",
+          "settings": {
+            "heading": "Banner promotion",
+            "text": "Add the details of your promotion in smaller text",
+            "link": "",
+            "label": "Shop now",
+            "color_tint": "#e95454",
+            "color_tint_opacity": 8,
+            "framed": false
+          }
+        },
+        "advanced": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "Limited time",
+            "heading": "Announce your promotion",
+            "textarea": "Include the smaller details of your promotion in text below the title.",
+            "cta_text1": "Shop This",
+            "cta_link1": "",
+            "cta_text2": "Shop All",
+            "cta_link2": "",
+            "video_url": "",
+            "width": "100",
+            "height": 500,
+            "text_size": 120,
+            "text_align": "vertical-center horizontal-center",
+            "focal_point": "center",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "banner",
+        "advanced"
+      ],
+      "settings": {
+        "full_width": false,
+        "gutter_size": 20,
+        "space_above": true,
+        "space_below": false
       }
     },
     "main-collection": {
@@ -13,14 +65,19 @@
           "settings": {
           }
         },
-        "product_grid": {
-          "type": "product_grid",
-          "settings": {
-          }
-        },
         "subcollections": {
           "type": "subcollections",
           "settings": {
+            "subcollections_per_row": 4
+          }
+        },
+        "product_grid": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": true
           }
         }
       },
@@ -30,29 +87,11 @@
         "product_grid"
       ],
       "settings": {
-      }
-    },
-    "promo-grid": {
-      "type": "promo-grid",
-      "blocks": {
-        "banner": {
-          "type": "banner",
-          "settings": {
-            "color_tint": "#E95454"
-          }
-        },
-        "advanced": {
-          "type": "advanced",
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "banner",
-        "advanced"
-      ],
-      "settings": {
-        "space_below": false
+        "enable_sidebar": true,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true
       }
     }
   },

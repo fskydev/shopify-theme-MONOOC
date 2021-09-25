@@ -3,39 +3,50 @@
     "main": {
       "type": "list-collections-template",
       "settings": {
+        "title_enable": true,
+        "display_type": "all",
+        "sort": "alphabetical",
+        "grid": "4"
       }
     },
     "logo-list": {
       "type": "logo-list",
+      "disabled": true,
       "blocks": {
         "logo1": {
           "type": "logo_image",
           "settings": {
+            "link": ""
           }
         },
         "logo2": {
           "type": "logo_image",
           "settings": {
+            "link": ""
           }
         },
         "logo3": {
           "type": "logo_image",
           "settings": {
+            "link": ""
           }
         },
         "logo4": {
           "type": "logo_image",
           "settings": {
+            "link": ""
           }
         },
         "logo5": {
           "type": "logo_image",
           "settings": {
+            "link": ""
           }
         },
         "logo6": {
           "type": "logo_image",
           "settings": {
+            "link": ""
           }
         }
       },
@@ -48,7 +59,9 @@
         "logo6"
       ],
       "settings": {
-        "title": "Our brands"
+        "title": "Our brands",
+        "logo_opacity": 76,
+        "divider": false
       }
     }
   },

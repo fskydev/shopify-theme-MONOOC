@@ -1,0 +1,186 @@
+/* #bxp-bldr-bottom-wizard {
+    z-index: 4 !important;
+} */
+
+.bxp-modal__container #bxp-modal__content {
+    color: #000000 !important;
+}
+
+.bxp-modal__container #bxp-modal__content .bxp-modal__title,
+.bxp-modal__container #bxp-modal__content #bxp-prod-info-content {
+    color: #000000 !important;
+}
+
+#bxp-prod-info-content p,
+#bxp-prod-info-content span {
+    color: #000000 !important;
+}
+
+.bxp-bldr-submit.bxp-bldr-wizard-step > div.bxp-bldr-question_title{
+    display: none;
+}
+.bxp-bldr-submit.bxp-bldr-wizard-step .bxp-bldr-box_general {
+    visibility: hidden;
+    height: 0px;
+}
+
+.custom-bldr_section-hero {
+    position: relative;
+    background-color: #ffffff;
+}
+
+.custom-bldr_section-hero:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 115%;
+    height: 15%;
+    background-image: url({{ 'wiggle_border_white.png' | asset_img_url: '2048x' }});
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/** -------- Box of Selected Products begin -------- */
+
+#bxp-bldr-middle-wizard .bxp-step-box {
+    position: sticky;
+    top: 104px;
+    z-index: 3;
+    background: white;
+}
+.bxp-summary-container {
+    pointer-events: none;
+}
+.bxp-summary-container:after {
+    content: 'X';
+    top: 0px;
+    position: absolute;
+    background-color: rgba(58,58,58,1);
+    color: white;
+    right: 0;
+    font-size: 12px;
+    padding: 2px 4px;
+    cursor: pointer;
+    /* opacity: 0.6; */
+    pointer-events: all;
+}
+
+/** -------- Box of Selected Products end -------- */
+
+#custom-bldr-upload-photo-text {
+    margin-top: 30px;
+}
+#custom-bldr-upload-photo-text .custom-bldr-title h3{
+    font-size: 1.625rem;
+    font-weight: 400;
+    text-align: center;
+    margin: 10px;
+}
+#custom-bldr-upload-photo-text .wrapper-tiles {
+    margin: auto;
+    width: 40vw;
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: repeat(4, 10vw);
+    grid-template-rows: 10vw 10vw 10vw;
+    grid-auto-flow: column;
+
+    background-color: #f7f7f7;
+    background-position: center;
+    background-size: cover;
+}
+
+#custom-bldr-upload-photo-text .wrapper-tiles::after {
+    content: "";
+    width: 20px;
+    display: inline-block;
+    background-image:url(//cdn.shopify.com/s/files/1/0580/1764/4725/files/right_box.jpg?v=1632131080);
+    background-position: center right;
+    background-size: 5vw;
+    background-repeat: no-repeat;
+    height: 30vw;
+}
+
+#custom-bldr-upload-photo-text .box {
+    /* background-color: #444; */
+    color: #fff;
+    border-radius: 0px;
+    /* border: 1px solid #dcf3ed; */
+    padding: 0px;
+    margin: 5px;
+    font-size: 150%;
+}
+
+#custom-bldr-upload-photo-text .box:nth-child(even) {
+    /* background-color: #ccc; */
+    color: #000;
+}
+
+#custom-bldr-upload-photo-text .box.box-custom {
+    cursor: pointer;
+    padding: 0px;
+    margin: 5px;
+    overflow-y: hidden;
+    border-radius: 0px;
+}
+#custom-bldr-upload-photo-text .box.box-custom img {
+    object-fit: cover;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+#custom-bldr-upload-photo-text .wrapper-customized-jewelry {
+    display: none;
+}
+#custom-bldr-upload-photo-text .wrapper-customized-jewelry.active {
+    display: block;
+}
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info {
+    display: flex;
+}
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info > img,
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info > div {
+    flex: 1 1 0;
+    width: 0;
+    padding: 25px;
+}
+
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info div > h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info div.upload-photo {
+    margin: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: auto;
+    font-size: 14px;
+
+    border-radius: 50%;
+    border: 3px #d9e1e6 solid;
+    cursor: pointer;
+
+    overflow: hidden;
+}
+
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info div.upload-photo:before {
+    content: "";
+    display: block;
+    margin-top: 100%;
+}
+.wrapper-customized-jewelry.active .customized-jewelry-content .product-info div.upload-photo img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}

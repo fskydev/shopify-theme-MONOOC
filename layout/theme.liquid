@@ -26,7 +26,9 @@
   {%- render 'social-meta-tags' -%}
 
   {%- render 'font-face' -%}
-  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.css' | asset_url | stylesheet_tag }}  
+  {{ 'box-builder_custom-upload.css' | asset_url | stylesheet_tag }}
+  
   {%- render 'css-variables' -%}
 
   <script>
@@ -81,10 +83,13 @@
   {%- endif -%}
 
   <script src="{{ 'theme.min.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'box-builder.js' | asset_url }}" defer="defer"></script>
 
   {%- if request.page_type contains 'customers/' -%}
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
   {%- endif -%}
+  {% include 'qikify-navigator' %}
+  {% include 'qikify-smartmenu' %}
 </head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-center-text="{{ settings.type_body_align_text }}" data-button_style="{{ settings.button_style }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-type_headers_align_text="{{ settings.type_headers_align_text }}" data-type_product_capitalize="{{ settings.type_product_capitalize }}" data-swatch_style="{{ settings.swatch_style }}" {% if settings.disable_animations %}data-disable-animations="true"{% endif %}>
@@ -95,11 +100,20 @@
     <div class="transition-body">
 
     {%- section 'header' -%}
-
+      {% if canonical_url contains '/apps/builder' %}
+          {%- liquid
+            render 'box-builder_section-hero'
+          -%}
+      {% endif %}
+      
       <main class="main-content" id="MainContent">
         {{ content_for_layout }}
       </main>
-
+      {% if canonical_url contains '/apps/builder' %}
+          {%- liquid
+            render 'box-builder_section-image-with-text'
+          -%}
+      {% endif %}
       {%- section 'footer-promotions' -%}
       {%- section 'footer' -%}
 
@@ -112,5 +126,9 @@
     render 'video-modal'
     render 'photoswipe-template'
   -%}
+  {%- liquid
+    render 'box-builder_custom-upload'
+  -%}
+  <script src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=monooc-jewelry.myshopify.com" defer></script>
 </body>
 </html>
