@@ -1,0 +1,11 @@
+<div class="collapsibles-wrapper collapsibles-wrapper--border-bottom">
+  <button type="button" class="label collapsible-trigger collapsible-trigger-btn collapsible-trigger-btn--borders collapsible--auto-height" aria-controls="Product-content-{{ id }}">
+    {{ title }}
+    {%- render 'collapsible-icons' -%}
+  </button>
+  <div id="Product-content-{{ id }}" class="collapsible-content collapsible-content--all">
+    <div class="collapsible-content__inner rte">
+      {{ content }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div class="page-width page-width--narrow">
+
+  {%- if section.settings.title != blank -%}
+    <header class="section-header">
+      <h2 class="section-header__title">
+        {{ section.settings.title | escape }}
+      </h2>
+    </header>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        {% case block.type %}
+          {% when 'rich-text'%}
+            <div class="index-section index-section--faq">
+              <div class="text-{{ block.settings.align_text }}">
+                {%- if block.settings.title != blank -%}
+                  <p class="h2">
+                    {{ block.settings.title | escape }}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="rte">
+                    {%- if block.settings.enlarge_text %}<div class="enlarge-text">{% endif -%}
+                      {{ block.settings.text }}
+                    {%- if block.settings.enlarge_text %}</div>{% endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+
+          {% when 'question'%}
+            <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <button type="button" class="collapsible-trigger collapsible-trigger--inline collapsible--auto-height text-left" aria-controls="FAQ-content-{{ block.id }}">
+                {%- render 'collapsible-icons-alt', no_circle: true -%}
+                <span itemprop="name">{{ block.settings.title }}</span>
+              </button>
+              <div id="FAQ-content-{{ block.id }}" class="collapsible-content collapsible-content--all" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="collapsible-content__inner collapsible-content__inner--faq rte" itemprop="text">
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            </div>
+        {% endcase %}
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if section.blocks.size == 0 -%}
+    <div class="placeholder-noblocks">
+      {{ 'home_page.onboarding.no_content' | t }}
+    </div>
+  {%- endif -%}
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+  {
+    "name": "FAQ",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "FAQs"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "rich-text",
+        "name": "Rich text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Rich text"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Use this section for any descriptive text you need to fill out your pages or to add introductory headings between other blocks.</p>"
+          },
+          {
+            "type": "select",
+            "id": "align_text",
+            "label": "Text alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Centered"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "question",
+        "name": "Question",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Question",
+            "default": "Frequently asked question"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [{
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    }]
+  }
+{% endschema %}

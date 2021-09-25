@@ -1,0 +1,67 @@
+{%- liquid
+  assign grid_item_width = 'small--one-half medium-up--one-fifth'
+  assign row_of = 5
+
+  case section.settings.recent_count
+    when 2
+      assign grid_item_width = 'medium-up--one-half'
+      assign row_of = 2
+    when 3
+      assign grid_item_width = 'small--one-half medium-up--one-third'
+      assign row_of = 3
+    when 4
+      assign grid_item_width = 'small--one-half medium-up--one-quarter'
+      assign row_of = 4
+    when 6
+      assign grid_item_width = 'small--one-half medium-up--one-sixth'
+      assign row_of = 6
+    when 8
+      assign grid_item_width = 'small--one-half medium-up--one-quarter'
+      assign row_of = 4
+  endcase
+-%}
+
+<div
+  data-subsection
+  data-section-id="{{ section.id }}"
+  data-section-type="recently-viewed"
+  data-product-handle="{{ product.handle }}"
+  data-recent-count="{{ section.settings.recent_count }}"
+  data-grid-item-class="{{ grid_item_width }}"
+  data-row-of="{{ row_of }}">
+  <hr class="hr--large">
+  <div class="index-section index-section--small">
+    <div class="page-width">
+      <header class="section-header">
+        <h3 class="section-header__title">{{ 'products.general.recent_products' | t }}</h3>
+      </header>
+    </div>
+
+    <div class="page-width page-width--flush-small">
+      <div class="grid-overflow-wrapper">
+        <div id="RecentlyViewed-{{ section.id }}" class="grid grid--uniform" data-aos="overflow__animation"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Recently viewed",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Recently viewed products are only visible when browsing outside of the editor"
+      },
+      {
+        "type": "range",
+        "id": "recent_count",
+        "label": "Number of recent products",
+        "default": 5,
+        "min": 2,
+        "max": 10,
+        "step": 1
+      }
+    ]
+  }
+{% endschema %}

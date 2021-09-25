@@ -1,0 +1,212 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+          }
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "settings": {
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+          }
+        },
+        "sales_point": {
+          "type": "sales_point",
+          "settings": {
+          }
+        },
+        "tab": {
+          "type": "tab",
+          "settings": {
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "price",
+        "separator",
+        "variant_picker",
+        "sales_point",
+        "inventory_status",
+        "buy_buttons",
+        "description",
+        "tab",
+        "contact",
+        "share"
+      ],
+      "settings": {
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "settings": {
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "settings": {
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slideshow-0": {
+          "type": "image",
+          "settings": {
+            "link_text": ""
+          }
+        },
+        "slideshow-1": {
+          "type": "image",
+          "settings": {
+            "link_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "slideshow-0",
+        "slideshow-1"
+      ],
+      "settings": {
+        "section_height": "550px",
+        "parallax": false
+      }
+    },
+    "text-and-image": {
+      "type": "text-and-image",
+      "settings": {
+      }
+    },
+    "text-and-image2": {
+      "type": "text-and-image",
+      "settings": {
+        "layout": "left"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonials-0": {
+          "type": "testimonial",
+          "settings": {
+          }
+        },
+        "testimonials-1": {
+          "type": "testimonial",
+          "settings": {
+          }
+        },
+        "testimonials-2": {
+          "type": "testimonial",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "testimonials-0",
+        "testimonials-1",
+        "testimonials-2"
+      ],
+      "settings": {
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq-0": {
+          "type": "question",
+          "settings": {
+          }
+        },
+        "faq-1": {
+          "type": "question",
+          "settings": {
+          }
+        },
+        "faq-2": {
+          "type": "question",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "faq-0",
+        "faq-1",
+        "faq-2"
+      ],
+      "settings": {
+      }
+    },
+    "hero-video": {
+      "type": "hero-video",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "slideshow",
+    "text-and-image",
+    "text-and-image2",
+    "testimonials",
+    "main",
+    "sub",
+    "faq",
+    "hero-video",
+    "product-recommendations",
+    "recently-viewed",
+    "collection-return"
+  ]
+}

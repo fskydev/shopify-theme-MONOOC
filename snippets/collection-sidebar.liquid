@@ -1,0 +1,69 @@
+{%- if section.settings.enable_sidebar -%}
+  <div
+    id="CollectionSidebar"
+    data-style="{{ section.settings.filter_style }}">
+
+    {%- render 'sidebar-drawer', section: section -%}
+
+    {%- if section.settings.filter_style == 'sidebar' -%}
+      <div class="collection-sidebar small--hide">
+        {%- render 'collection-sidebar-filters', location: 'CollectionSidebar', section: section -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{%- if section.settings.enable_sidebar == false or section.settings.filter_style == 'drawer' -%}
+  {% comment %}
+    Override grid styles if sidebar is disabled
+  {% endcomment %}
+  {%- style -%}
+    .collection-content .grid__item--sidebar { width: 0; }
+    .collection-content .grid__item--content { width: 100%; }
+    .grid__item--sidebar { position: static; overflow: hidden; }
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- if section.settings.enable_sidebar and section.settings.filter_style != 'drawer' -%}
+  {% comment %}
+    Sidebar enabled but not in drawer mode, only show filter button on mobile
+  {% endcomment %}
+  {%- style -%}
+    @media screen and (min-width: 769px) {
+      .collection-filter__item--drawer {
+        display: none;
+      }
+      .collection-filter__item--count {
+        text-align: left;
+      }
+      html[dir="rtl"] .collection-filter__item--count {
+        text-align: right;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- unless section.settings.enable_sidebar -%}
+  {% comment %}
+    Disable sidebar & filter features
+  {% endcomment %}
+  {%- style -%}
+    .collection-filter__item--drawer {
+      display: none;
+    }
+    .collection-filter__item--count {
+      text-align: left;
+    }
+    html[dir="rtl"] .collection-filter__item--count {
+      text-align: right;
+    }
+  {%- endstyle -%}
+{%- endunless -%}
+
+{%- unless section.settings.enable_sort -%}
+  {%- style -%}
+    .collection-filter__sort-container {
+      display: none;
+    }
+  {%- endstyle -%}
+{%- endunless -%}

@@ -1,0 +1,58 @@
+{%- assign contact_form_id = 'contact-' | append: block.id -%}
+<div class="collapsibles-wrapper collapsibles-wrapper--border-bottom">
+  {%- form 'contact', id: contact_form_id -%}
+    <button type="button" class="label collapsible-trigger collapsible-trigger-btn collapsible-trigger-btn--borders collapsible--auto-height" aria-controls="Product-content-{{ block.id }}">
+      {{ block.settings.title }}
+      {%- render 'collapsible-icons' -%}
+    </button>
+    <div id="Product-content-{{ block.id }}" class="collapsible-content collapsible-content--all">
+      <div class="collapsible-content__inner rte">
+        <div class="form-vertical">
+          <input type="hidden" name="contact[product]" value="Product question for: {{ shop.secure_url }}{{ product.url }}">
+
+          <div class="grid grid--small">
+            <div class="grid__item medium-up--one-half">
+              <label for="ContactFormName-{{ block.id }}">{{ 'contact.form.name' | t }}</label>
+              <input type="text" id="ContactFormName-{{ block.id }}" class="input-full" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+            </div>
+
+            <div class="grid__item medium-up--one-half">
+              <label for="ContactFormEmail-{{ block.id }}">{{ 'contact.form.email' | t }}</label>
+              <input type="email" id="ContactFormEmail-{{ block.id }}" class="input-full" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+            </div>
+          </div>
+
+          {%- if block.settings.phone -%}
+            <label for="ContactFormPhone-{{ block.id }}">{{ 'contact.form.phone' | t }}</label>
+            <input type="tel" id="ContactFormPhone-{{ block.id }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+          {%- endif -%}
+
+          <label for="ContactFormMessage-{{ block.id }}">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="5" id="ContactFormMessage-{{ block.id }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+          <button type="submit" class="btn">
+            {{ 'contact.form.send' | t }}
+          </button>
+
+          {% comment %}
+            Remove the following three lines of code to remove the note
+            about being protected by Google's reCAPTCHA service.
+            By removing it, the small reCAPTCHA widget will appear in the
+            bottom right corner of the page.
+          {% endcomment %}
+          {{ 'shopify.online_store.spam_detection.disclaimer_html' | t }}
+        </div>
+      </div>
+    </div>
+
+    {%- if form.posted_successfully? -%}
+      <p class="note note--success">
+        {{ 'contact.form.post_success' | t }}
+      </p>
+    {%- endif -%}
+
+    {%- if form.product -%}
+      {{ form.errors | default_errors }}
+    {%- endif -%}
+  {%- endform -%}
+</div>

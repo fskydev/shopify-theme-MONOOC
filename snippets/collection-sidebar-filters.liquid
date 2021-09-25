@@ -1,0 +1,157 @@
+<ul class="no-bullets tag-list tag-list--active-tags">
+  {%- for filter in collection.filters -%}
+    {%- assign filter_index = forloop.index -%}
+
+    {%- for filter_value in filter.active_values -%}
+      <li class="tag tag--remove">
+        <a class="btn btn--small" href="{{ filter_value.url_to_remove }}">
+          {{ filter_value.label | escape }}
+        </a>
+        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/></svg>
+      </li>
+    {%- endfor -%}
+  {%- endfor -%}
+</ul>
+
+<form class="filter-form">
+  {%- for filter in collection.filters -%}
+    {%- capture filter_id -%}filter-{{ filter.label | handleize }}{%- endcapture -%}
+    {%- assign filter_index = forloop.index -%}
+    {%- assign collapsed_state = section.settings.collapsed -%}
+
+    <div class="collection-sidebar__group--{{ filter_index }}">
+      <div class="collection-sidebar__group">
+        {%- render 'collection-sidebar-filter-trigger',
+              id: filter_id,
+              location: location,
+              title: filter.label,
+              index: filter_index,
+              collapsed_state: collapsed_state -%}
+        <div
+          id="{{ location }}-{{ filter_index }}-{{ filter_id }}"
+          class="collapsible-content collapsible-content--sidebar{% unless collapsed_state %} is-open{% endunless %}"
+          data-collapsible-id="{{ filter_id }}"
+          {% unless collapsed_state %}style="height: auto;"{% endunless %}>
+          <div class="collapsible-content__inner">
+            {%- case filter.type -%}
+              {%- when 'list' -%}
+                {%- liquid
+                  assign is_color = false
+                  assign swatch_file_extension = 'png'
+                  if section.settings.enable_color_swatches
+                    assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+                    assign downcased_label = filter.label | downcase
+                    if downcased_label contains swatch_trigger
+                      assign is_color = true
+                    elsif swatch_trigger == 'color' and downcased_label contains 'colour'
+                      assign is_color = true
+                    endif
+                  endif
+                -%}
+
+                <ul class="no-bullets tag-list">
+                  {%- assign tag_count = filter.values.size -%}
+                  {%- for filter_value in filter.values -%}
+                    {%- liquid
+                      assign tag_count = tag_count | plus: 1
+                      assign filter_value_index = forloop.index
+
+                      assign color_file_name = filter_value.label | handle | append: '.' | append: swatch_file_extension
+                      assign color_image = color_file_name | file_img_url: '50x50' | prepend: 'https:' | split: '?' | first
+                      assign color_swatch_fallback = filter_value.label | split: ' ' | last | handle
+                    -%}
+
+                    <li class="tag{% if filter_value.active %} tag--active{% endif %}{% if is_color %} tag--swatch{% endif %}{% if filter_value.count == 0%} hide{% endif %}">
+                      <label class="tag__checkbox-wrapper text-label">
+                        <input
+                          type="checkbox"
+                          class="tag__input"
+                          name="{{ filter_value.param_name }}"
+                          value="{{ filter_value.value }}"
+                          {% if filter_value.active -%}checked{%- endif %}>
+                        {%- if is_color -%}
+                          <span
+                            class="color-swatch color-swatch--filter color-swatch--{{ filter_value.label | handle }}"
+                            title="{{ filter_value.label }}"
+                            style="background-color: {{ color_swatch_fallback }};{% if images[color_file_name] != blank %}  background-image: url({{ color_image }});{% endif %}"
+                          >
+                            {{ filter_value.label }}
+                          </span>
+                          <span class="tag__text hide">{{ filter_value.label | escape }}</span>
+                        {%- else -%}
+                          <span class="tag__checkbox"></span>
+                          <span>
+                            <span class="tag__text">{{ filter_value.label | escape }}</span> ({{ filter_value.count }})
+                          </span>
+                        {%- endif -%}
+                      </label>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+
+                {%- if tag_count == 0 -%}
+                  {%- style -%}
+                    .collection-sidebar__group--{{ filter_index }} { display: none; }
+                  {%- endstyle -%}
+                {%- endif -%}
+              {%- when 'price_range'-%}
+                {% comment %} Comma code from Dawn {% endcomment %}
+                {% liquid
+                  assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                  assign uses_comma_decimals = false
+
+                  if currencies_using_comma_decimals contains cart.currency.iso_code
+                    assign uses_comma_decimals = true
+                  endif
+
+                  assign filter_min_value = filter.min_value.value | money_without_currency | replace: ',', ''
+                  assign filter_max_value = filter.max_value.value | money_without_currency | replace: ',', ''
+                  assign filter_range_min = filter.range_min | money_without_currency | replace: ',', ''
+                  assign filter_range_max = filter.range_max | money_without_currency | replace: ',', ''
+
+                  if uses_comma_decimals
+                    if filter.min_value.value
+                      assign filter_min_value = filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.'
+                    endif
+
+                    if filter.max_value.value
+                      assign filter_max_value = filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.'
+                    endif
+
+                    assign filter_range_min = filter.range_min | money_without_currency | replace: '.', '' | replace: ',', '.'
+                    assign filter_range_max = filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.'
+                  endif
+                %}
+                <div
+                  class="price-range"
+                  data-min-value="{{ filter_min_value }}"
+                  data-min-name="{{ filter.min_value.param_name }}"
+                  data-min="{{ filter_range_min }}"
+                  data-max-value="{{ filter_max_value }}"
+                  data-max-name="{{ filter.max_value.param_name }}"
+                  data-max="{{ filter_range_max }}">
+                  <div class="price-range__display-wrapper">
+                    <span class="price-range__display-min">{{ filter_min_value }}</span>
+                    <span class="price-range__display-max">{{ filter_max_value }}</span>
+                  </div>
+                  <div class="price-range__slider-wrapper">
+                    <div class="price-range__slider"></div>
+                  </div>
+                  <input
+                    class="price-range__input price-range__input-min"
+                    name="{{ filter.min_value.param_name }}"
+                    value="{{ filter_min_value }}"
+                    readonly>
+                  <input
+                    class="price-range__input price-range__input-max"
+                    name="{{ filter.max_value.param_name }}"
+                    value="{{ filter_max_value }}"
+                    readonly>
+                </div>
+            {%- endcase -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+</form>

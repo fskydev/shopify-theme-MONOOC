@@ -1,0 +1,94 @@
+{%- assign inventory_visible = false -%}
+{%- if current_variant.inventory_management == 'shopify' -%}
+  {%- if current_variant.inventory_quantity <= block.settings.inventory_threshold and current_variant.inventory_quantity >= 0 -%}
+    {%- assign inventory_visible = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- liquid
+  if current_variant.inventory_quantity == 0 or current_variant.inventory_policy == 'continue'
+    assign inventory_visible = false
+  endif
+
+  assign show_incoming = false
+  if current_variant.incoming and inventory_visible == false and current_variant.inventory_quantity <= block.settings.inventory_threshold
+    assign show_incoming = true
+  endif
+-%}
+
+<ul class="sales-points">
+  <li class="sales-point">
+    <span class="icon-and-text{% if inventory_visible == true %} inventory--low{% endif %}{% unless current_variant.available %} hide{% endunless %}">
+      <span class="icon icon--inventory"></span>
+      <span data-product-inventory data-threshold="{{ block.settings.inventory_threshold }}">
+        {%- if inventory_visible -%}
+          {{ 'products.product.stock_label' | t: count: current_variant.inventory_quantity }}
+        {%- else -%}
+          {{ 'products.product.in_stock_label' | t }}
+        {%- endif -%}
+      </span>
+    </span>
+  </li>
+  {%- if block.settings.inventory_transfers_enable -%}
+    <li
+      data-incoming-inventory
+      class="sales-point{% unless show_incoming %} hide{% endunless %}">
+      <span class="icon-and-text">
+        <span class="icon icon--inventory"></span>
+        <span class="js-incoming-text">
+          {%- if current_variant.next_incoming_date -%}
+            {%- assign date = current_variant.next_incoming_date | date: format: 'date' -%}
+            {%- if current_variant.available -%}
+              {{ 'products.product.will_not_ship_until' | t: date: date }}
+            {%- else -%}
+              {{ 'products.product.will_be_in_stock_after' | t: date: date }}
+            {%- endif -%}
+          {%- else -%}
+            {{ 'products.product.waiting_for_stock' | t }}
+          {%- endif -%}
+        </span>
+      </span>
+    </li>
+  {%- endif -%}
+</ul>
+
+{%- assign variants_with_inventory_tracking = product.variants | where: 'inventory_management', 'shopify' -%}
+
+<script>
+  // Store inventory quantities in JS because they're no longer
+  // available directly in JS when a variant changes.
+  // Have an object that holds all potential products so it works
+  // with quick view or with multiple featured products.
+  window.inventories = window.inventories || {};
+  window.inventories['{{ product.id }}'] = {};
+   {% for variant in variants_with_inventory_tracking %}
+    window.inventories['{{ product.id }}'][{{ variant.id }}] = {
+      'quantity': {{ variant.inventory_quantity | default: 0 }},
+      'incoming': '{{ variant.incoming | default: false }}',
+      'next_incoming_date': {{ variant.next_incoming_date | date: format: 'date' | json }}
+    };
+   {% endfor %}
+</script>
+
+{% comment %}
+  If loaded in quick view, it might be from a JS-loaded function
+  that loads recommended products. If that's the case, the above
+  JS will not set the variant inventory. Add it to an accessible
+  data div to read later instead.
+{% endcomment %}
+<div
+  data-product-id="{{ product.id }}"
+  class="hide js-product-inventory-data"
+  aria-hidden="true"
+  >
+  {%- for variant in variants_with_inventory_tracking -%}
+    <div
+      class="js-variant-inventory-data"
+      data-id="{{ variant.id }}"
+      data-quantity="{{ variant.inventory_quantity | default: 0 }}"
+      data-incoming="{{ variant.incoming | default: false }}"
+      data-date="{{ variant.next_incoming_date | date: format: 'date' }}"
+    >
+    </div>
+  {%- endfor -%}
+</div>

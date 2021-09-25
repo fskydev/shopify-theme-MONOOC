@@ -1,0 +1,150 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+  {%- for block in section.blocks -%}
+    <div class="theme-block" {{ block.shopify_attributes }}>
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          <h2>{{ block.settings.title | escape }}</h2>
+        {%- when 'page' -%}
+          <div class="rte">
+            {%- if block.settings.page_text != blank -%}
+              {{ pages[block.settings.page_text].content }}
+            {%- else -%}
+              {{ 'home_page.onboarding.no_content' | t }}
+            {%- endif -%}
+          </div>
+        {%- when 'text' -%}
+          <div class="rte">
+            {%- if block.settings.text != blank -%}
+              {%- if block.settings.enlarge_text %}<div class="enlarge-text">{% endif -%}
+              {{ block.settings.text }}
+              {%- if block.settings.enlarge_text %}</div>{% endif -%}
+            {%- else -%}
+              {{ 'home_page.onboarding.no_content' | t }}
+            {%- endif -%}
+          </div>
+        {%- when 'button' -%}
+          <div class="rte">
+            <a href="{{ block.settings.link }}" class="btn">
+              {{ block.settings.link_text }}
+            </a>
+          </div>
+      {%- endcase -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Rich text",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "select",
+        "id": "align_text",
+        "label": "Text alignment",
+        "default": "center",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Centered"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "narrow_column",
+        "label": "Narrow column",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "divider",
+        "label": "Show section divider",
+        "default": false
+      }
+    ],
+    "blocks" : [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Rich text"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enlarge_text",
+            "label": "Enlarge text",
+            "default": true
+          },
+          {
+            "id": "text",
+            "type": "richtext",
+            "label": "Text",
+            "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "Button",
+        "settings": [
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Button link"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Button text",
+            "default": "Button"
+          }
+        ]
+      },
+      {
+        "type": "page",
+        "name": "Page",
+        "settings": [
+          {
+            "id": "page_text",
+            "type": "page",
+            "label": "Page"
+          }
+        ]
+      }
+    ],
+    "presets": [{
+      "name": "Rich text",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }]
+  }
+{% endschema %}

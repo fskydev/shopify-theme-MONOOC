@@ -1,0 +1,404 @@
+{%- liquid
+  assign isModal = false
+  if template == 'product.modal'
+    assign isModal = true
+  endif
+-%}
+
+{%- render 'product-template',
+  product: product,
+  section_id: section.id,
+  blocks: section.blocks,
+
+  image_position: section.settings.image_position,
+  image_container_width: section.settings.image_size,
+  product_zoom_enable: section.settings.product_zoom_enable,
+  sku_enable: section.settings.sku_enable,
+  isModal: isModal,
+  thumbnail_position: section.settings.thumbnail_position,
+  thumbnail_arrows: section.settings.thumbnail_arrows,
+  mobile_layout: section.settings.mobile_layout,
+  video_looping: section.settings.enable_video_looping,
+  video_style: section.settings.product_video_style
+-%}
+
+{% schema %}
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "sku_enable",
+        "label": "Show SKU"
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      },
+      {
+        "type": "paragraph",
+        "content": "Learn more about [media types](https://help.shopify.com/en/manual/products/product-media)"
+      },
+      {
+        "type": "select",
+        "id": "image_position",
+        "label": "Position",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_size",
+        "label": "Size",
+        "default": "medium",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "product_zoom_enable",
+        "label": "Enable image zoom",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "thumbnail_position",
+        "label": "Thumbnail position",
+        "default": "beside",
+        "options": [
+          {
+            "value": "beside",
+            "label": "Next to media"
+          },
+          {
+            "value": "below",
+            "label": "Below media"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "thumbnail_arrows",
+        "label": "Show thumbnail arrows"
+      },
+      {
+        "type": "select",
+        "id": "mobile_layout",
+        "label": "Mobile layout",
+        "default": "partial",
+        "options": [
+          {
+            "value": "partial",
+            "label": "75% width"
+          },
+          {
+            "value": "full",
+            "label": "Full width"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_video_style",
+        "label": "Video style",
+        "default": "muted",
+        "options": [
+          {
+            "value": "muted",
+            "label": "Video without sound"
+          },
+          {
+            "value": "unmuted",
+            "label": "Video with sound"
+          }
+        ],
+        "info": "Video with sound will not autoplay"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
+      },
+      {
+        "type": "quantity_selector",
+        "name": "Quantity selector",
+        "limit": 1
+      },
+      {
+        "type": "variant_picker",
+        "name": "Variant picker",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "variant_labels",
+            "label": "Show variant labels",
+            "default": true
+          },
+          {
+            "type": "select",
+            "id": "picker_type",
+            "label": "Type",
+            "options": [
+              {
+                "value": "button",
+                "label": "Buttons"
+              },
+              {
+                "value": "dropdown",
+                "label": "Dropdown"
+              }
+            ],
+            "default": "button"
+          },
+          {
+            "type": "checkbox",
+            "id": "color_swatches",
+            "label": "Enable color swatches",
+            "info": "Requires type to be set to 'Buttons'. [Learn how to set up swatches](https://archetypethemes.co/blogs/impulse/how-do-i-set-up-color-swatches)"
+          }
+        ]
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "is_tab",
+            "label": "Show as tab"
+          }
+        ]
+      },
+      {
+        "type": "buy_buttons",
+        "name": "Buy buttons",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_dynamic_checkout",
+            "label": "Show dynamic checkout button",
+            "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "surface_pickup_enable",
+            "label": "Enable pickup availability feature",
+            "info": "Learn how to setup this feature [here](https://help.shopify.com/en/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup)",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "inventory_status",
+        "name": "Inventory status",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "range",
+            "id": "inventory_threshold",
+            "label": "Low inventory threshold",
+            "default": 10,
+            "min": 0,
+            "max": 20,
+            "step": 2
+          },
+          {
+            "type": "checkbox",
+            "id": "inventory_transfers_enable",
+            "label": "Show inventory transfer notice",
+            "info": "Learn how to create inventory transfers [here](https://help.shopify.com/en/manual/products/inventory/transfers/create-transfer)",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "sales_point",
+        "name": "Sales point",
+        "settings": [
+          {
+            "type": "select",
+            "id": "icon",
+            "label": "Icon",
+            "default": "globe",
+            "options": [
+              {
+                "value": "checkmark",
+                "label": "Checkmark"
+              },
+              {
+                "value": "globe",
+                "label": "Globe"
+              },
+              {
+                "value": "leaf",
+                "label": "Leaf"
+              },
+              {
+                "value": "package",
+                "label": "Package"
+              },
+              {
+                "value": "lock",
+                "label": "Lock"
+              },
+              {
+                "value": "truck",
+                "label": "Truck"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Free worldwide shipping"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "default": "Text block",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "trust_badge",
+        "name": "Trust badge",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "trust_image",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "name": "Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Shipping information"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Tab content",
+            "default": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>"
+          },
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Tab content from page"
+          }
+        ]
+      },
+      {
+        "type": "share",
+        "name": "Share on social",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Choose which platforms to share to in global theme settings"
+          }
+        ]
+      },
+      {
+        "type": "separator",
+        "name": "Separator"
+      },
+      {
+        "type": "contact",
+        "name": "Contact form",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "All submissions are sent to the customer email address of your store. [Learn more](https://help.shopify.com/en/manual/using-themes/change-the-layout/add-contact-form#view-contact-form-submissions)."
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Ask a question"
+          },
+          {
+            "type": "checkbox",
+            "id": "phone",
+            "label": "Add phone number field"
+          }
+        ]
+      },
+      {
+        "type": "reviews",
+        "name": "Product reviews badge",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Add reviews by installing the [Shopify Product Reviews app](https://apps.shopify.com/product-reviews) and following our [setup guide](https://archetypethemes.co/blogs/support/installing-shopifys-product-reviews-app)"
+          }
+        ]
+      },
+      {
+        "type": "custom",
+        "name": "HTML",
+        "settings": [
+          {
+            "type": "liquid",
+            "id": "code",
+            "label": "HTML",
+            "default": "<h4>Custom code block</h4><p>Use this advanced section to add custom HTML, app scripts, or liquid.</p>",
+            "info": "Supports Liquid"
+          }
+        ]
+      }
+
+    ]
+  }
+{% endschema %}

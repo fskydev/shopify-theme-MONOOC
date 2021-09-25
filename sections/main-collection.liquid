@@ -1,0 +1,159 @@
+<div
+  id="CollectionAjaxResult"
+  class="collection-content"
+  data-section-id="{{ section.id }}"
+  data-section-type="collection-template"
+>
+  <div id="CollectionAjaxContent">
+    <div class="page-width">
+      <div class="grid">
+        <div class="grid__item medium-up--one-fifth grid__item--sidebar">
+          {% render 'collection-sidebar', section: section %}
+        </div>
+        <div class="grid__item medium-up--four-fifths grid__item--content">
+          <div class="collection-grid__wrapper">
+            {% render 'collection-template', section: section %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollectionPage",
+  {% if collection.description != blank %}
+    "description": {{ collection.description | strip_html | json }},
+  {% endif %}
+  {% if page_image %}
+    {% assign image_size = page_image.width | append: 'x' %}
+    "image": {
+      "@type": "ImageObject",
+      "height": {{ page_image.height | json }},
+      "url": {{ page_image | img_url: image_size | prepend: "https:" | json }},
+      "width": {{ page_image.width | json }}
+    },
+  {% endif %}
+  "name": {{ collection.title | json }}
+}
+</script>
+
+{% schema %}
+  {
+    "name": "Product grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Filtering and sorting"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sidebar",
+        "label": "Enable filter",
+        "default": true,
+        "info": "Allow your customers to filter collections and search results by product availability, price, color, and more. [Customize filters](/admin/menus)"
+      },
+      {
+        "type": "checkbox",
+        "id": "collapsed",
+        "label": "Collapse filters",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "filter_style",
+        "label": "Filter style",
+        "default": "sidebar",
+        "options": [
+          {
+            "value": "sidebar",
+            "label": "Sidebar"
+          },
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_color_swatches",
+        "label": "Enable color swatches",
+        "info": "[View setup instructions](https://archetypethemes.co/blogs/impulse/how-do-i-set-up-color-swatches)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sort",
+        "label": "Show sort options",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection_description",
+        "name": "Collection description",
+        "limit": 1
+      },
+      {
+        "type": "product_grid",
+        "name": "Products",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_collection_count",
+            "label": "Enable collection count",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "per_row",
+            "label": "Products per row",
+            "default": 4,
+            "min": 2,
+            "max": 5,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "rows_per_page",
+            "label": "Rows per page",
+            "default": 7,
+            "min": 3,
+            "max": 20,
+            "step": 1
+          },
+          {
+            "type": "checkbox",
+            "id": "mobile_flush_grid",
+            "label": "Flush grid on mobile",
+            "default": false
+          }
+        ],
+        "limit": 1
+      },
+      {
+        "type": "subcollections",
+        "name": "Subcollections",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Links to collections from your menu will appear here. [Learn more](https://archetypethemes.co/blogs/expanse/how-do-i-create-subcollections)"
+          },
+          {
+            "type": "range",
+            "id": "subcollections_per_row",
+            "label": "Subcollections per row",
+            "default": 5,
+            "min": 2,
+            "max": 5,
+            "step": 1
+          }
+        ],
+        "limit": 1
+      }
+    ]
+
+  }
+{% endschema %}

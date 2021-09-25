@@ -1,0 +1,35 @@
+{%- liquid
+  case per_row
+    when 2
+      assign grid_item_width = 'medium-up--one-half'
+    when 3
+      assign grid_item_width = 'small--one-half medium-up--one-third'
+    when 4
+      assign grid_item_width = 'small--one-half medium-up--one-quarter'
+    when 5
+      assign grid_item_width = 'small--one-half medium-up--one-fifth'
+  endcase
+-%}
+
+<div class="grid grid--uniform{% unless settings.collection_grid_gutter %} grid--no-gutters{% endunless %}">
+  {%- for sub_collection_link in sub_collection_links -%}
+    {%- if sub_collection_link.url contains '/collections/' -%}
+      {%- liquid
+        assign lang_code_string = request.locale.iso_code | prepend: '/' | downcase
+        assign sub_collection_handle = sub_collection_link.url | remove: '/collections/' | remove: lang_code_string
+        assign sub_collection = collections[sub_collection_handle]
+      -%}
+      {%- if sub_collection != blank -%}
+        {%- unless parent_url == sub_collection.url -%}
+          {%- render 'collection-grid-item',
+            collection: sub_collection,
+            grid_item_width: grid_item_width,
+            collection_title: sub_collection_link.title
+            per_row: per_row
+          -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+

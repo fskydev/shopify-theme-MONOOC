@@ -1,0 +1,59 @@
+{
+  "sections": {
+    "main": {
+      "type": "list-collections-template",
+      "settings": {
+      }
+    },
+    "logo-list": {
+      "type": "logo-list",
+      "blocks": {
+        "logo1": {
+          "type": "logo_image",
+          "settings": {
+          }
+        },
+        "logo2": {
+          "type": "logo_image",
+          "settings": {
+          }
+        },
+        "logo3": {
+          "type": "logo_image",
+          "settings": {
+          }
+        },
+        "logo4": {
+          "type": "logo_image",
+          "settings": {
+          }
+        },
+        "logo5": {
+          "type": "logo_image",
+          "settings": {
+          }
+        },
+        "logo6": {
+          "type": "logo_image",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "logo1",
+        "logo2",
+        "logo3",
+        "logo4",
+        "logo5",
+        "logo6"
+      ],
+      "settings": {
+        "title": "Our brands"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "logo-list"
+  ]
+}

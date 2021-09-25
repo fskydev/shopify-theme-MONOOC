@@ -1,0 +1,68 @@
+{%- assign formId = 'localization_form' | append: location -%}
+{%- form 'localization', id: formId, class: 'multi-selectors', data-disclosure-form: '' -%}
+  {%- if locale_selector -%}
+    <div class="multi-selectors__item">
+      <h2 class="visually-hidden" id="LangHeading-{{ location }}">
+        {{ 'general.language.dropdown_label' | t }}
+      </h2>
+
+      <div class="disclosure" data-disclosure-locale>
+        <button type="button" class="faux-select disclosure__toggle" aria-expanded="false" aria-controls="LangList-{{ location }}" aria-describedby="LangHeading-{{ location }}" data-disclosure-toggle>
+          <span class="disclosure-list__label">
+            {{ form.current_locale.endonym_name }}
+          </span>
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-chevron-down" viewBox="0 0 28 16"><path d="M1.57 1.59l12.76 12.77L27.1 1.59" stroke-width="2" stroke="#000" fill="none" fill-rule="evenodd"/></svg>
+        </button>
+        <ul id="LangList-{{ location }}" class="disclosure-list{% if location == 'toolbar' %} disclosure-list--down disclosure-list--left{% endif %}" data-disclosure-list>
+          {%- for locale in form.available_locales -%}
+            <li class="disclosure-list__item{% if locale.iso_code == form.current_locale.iso_code %} disclosure-list__item--current{% endif %}">
+              <a class="disclosure-list__option" href="#" lang="{{ locale.iso_code }}"{% if locale.iso_code == form.current_locale.iso_code %} aria-current="true"{% endif %} data-value="{{ locale.iso_code }}" data-disclosure-option>
+                <span class="disclosure-list__label">
+                  {{ locale.endonym_name }}
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <input type="hidden" name="locale_code" id="LocaleSelector-{{ location }}" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if currency_selector -%}
+    <div class="multi-selectors__item">
+      <h2 class="visually-hidden" id="CurrencyHeading-{{ location }}">
+        {{ 'general.currency.dropdown_label' | t }}
+      </h2>
+
+      <div class="disclosure" data-disclosure-currency>
+        <button type="button" class="faux-select disclosure__toggle" aria-expanded="false" aria-controls="CurrencyList-{{ location }}" aria-describedby="CurrencyHeading-{{ location }}" data-disclosure-toggle>
+          {%- if show_currency_flags -%}
+            <span class="currency-flag" data-flag="{{ form.current_currency.iso_code }}" aria-hidden="true"></span>
+          {%- endif -%}
+
+          <span class="disclosure-list__label">
+            {{ form.current_currency.iso_code }} {%- if form.current_currency.symbol -%}{{ form.current_currency.symbol }}{%- endif -%}
+          </span>
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-chevron-down" viewBox="0 0 28 16"><path d="M1.57 1.59l12.76 12.77L27.1 1.59" stroke-width="2" stroke="#000" fill="none" fill-rule="evenodd"/></svg>
+        </button>
+        <ul id="CurrencyList-{{ location }}" class="disclosure-list{% if location == 'toolbar' %} disclosure-list--down disclosure-list--left{% endif %}" data-disclosure-list>
+          {%- for currency in form.available_currencies -%}
+            <li class="disclosure-list__item{% if currency.iso_code == form.current_currency.iso_code %} disclosure-list__item--current{% endif %}">
+              <a class="disclosure-list__option" href="#"{% if currency.iso_code == form.current_currency.iso_code %} aria-current="true"{% endif %} data-value="{{ currency.iso_code }}" data-disclosure-option>
+                {%- if show_currency_flags -%}
+                  <span class="currency-flag" data-flag="{{ currency.iso_code }}" aria-hidden="true"></span>
+                {%- endif -%}
+
+                <span class="disclosure-list__label">
+                  {{ currency.iso_code }} {%- if currency.symbol -%}{{ currency.symbol }}{%- endif -%}
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <input type="hidden" name="currency_code" value="{{ form.current_currency.iso_code }}" data-disclosure-input>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endform -%}

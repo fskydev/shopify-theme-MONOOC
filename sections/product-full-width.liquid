@@ -1,0 +1,185 @@
+{%- if section.blocks.size > 0 -%}
+  <div class="page-width{% if section.settings.max_width %} page-width--narrow{% endif %}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+        {%- when 'reviews' -%}
+          <div class="product-block product-block--tab product-reviews" {{ block.shopify_attributes }}>
+            <div id="shopify-product-reviews-{{ product.id }}"></div>
+            {% assign tab_id = block.id | append: product.id %}
+            {% capture tab_title %}
+              {{ 'products.general.reviews' | t }}
+            {% endcapture %}
+            {% capture tab_content %}
+              <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+            {% endcapture %}
+            {%- render 'tab', id: tab_id, title: tab_title, content: tab_content -%}
+          </div>
+        {%- when 'separator' -%}
+          <div class="product-block"><hr></div>
+        {%- when 'text' -%}
+          <div {{ block.shopify_attributes }} class="product-block">
+            {{ block.settings.text }}
+          </div>
+        {%- when 'tab' -%}
+          <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+            {% assign tab_id = block.id | append: product.id %}
+            {% capture tab_content %}
+              {{ block.settings.content }}
+              {{ block.settings.page.content }}
+            {% endcapture %}
+            {%- render 'tab', id: tab_id, title: block.settings.title, content: tab_content -%}
+          </div>
+        {%- when 'contact' -%}
+          <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+            {%- render 'tab-contact', block: block -%}
+          </div>
+        {%- when 'description' -%}
+          <div class="product-block{% if block.settings.is_tab %} product-block--tab{% endif %}" {{ block.shopify_attributes }}>
+            {%- render 'product-description', id: block.id, product: product, is_tab: block.settings.is_tab -%}
+          </div>
+        {%- when 'share' -%}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            {%- render 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product -%}
+          </div>
+        {%- when 'custom' -%}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            {{ block.settings.code }}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Full-width details",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "For product lines with long descriptions, we recommend placing your Description and Tabs within this section."
+      },
+      {
+        "type": "checkbox",
+        "id": "max_width",
+        "label": "Optimize for readability",
+        "info": "Applies a maximum width",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "is_tab",
+            "label": "Show as tab"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "default": "Text block",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "name": "Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Shipping information"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Tab content",
+            "default": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>"
+          },
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Tab content from page"
+          }
+        ]
+      },
+      {
+        "type": "share",
+        "name": "Share on social",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Choose which platforms to share to in global theme settings"
+          }
+        ]
+      },
+      {
+        "type": "separator",
+        "name": "Separator"
+      },
+      {
+        "type": "contact",
+        "name": "Contact form",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "All submissions are sent to the customer email address of your store. [Learn more](https://help.shopify.com/en/manual/using-themes/change-the-layout/add-contact-form#view-contact-form-submissions)."
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Ask a question"
+          },
+          {
+            "type": "checkbox",
+            "id": "phone",
+            "label": "Add phone number field"
+          }
+        ]
+      },
+      {
+        "type": "reviews",
+        "name": "Product reviews",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Add reviews by installing the [Shopify Product Reviews app](https://apps.shopify.com/product-reviews) and following our [setup guide](https://archetypethemes.co/blogs/support/installing-shopifys-product-reviews-app)"
+          }
+        ]
+      },
+      {
+        "type": "custom",
+        "name": "HTML",
+        "settings": [
+          {
+            "type": "liquid",
+            "id": "code",
+            "label": "HTML",
+            "default": "<h4>Custom code block</h4><p>Use this advanced section to add custom HTML, app scripts, or liquid.</p>",
+            "info": "Supports Liquid"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

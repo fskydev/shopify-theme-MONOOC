@@ -1,0 +1,41 @@
+{%- if url contains 'youtube.com/watch' -%}
+  {%- assign video_id = url | split: 'v=' -%}
+  {%- assign video_id = video_id[1] | split: '&' | first -%}
+  <div
+    id="YouTubeVideo-{{ section_id }}"
+    class="video-div"
+    data-type="youtube"
+    data-video-id="{{ video_id }}"></div>
+{%- endif -%}
+
+{%- if url contains 'youtu.be/' -%}
+  {%- assign video_id = url | split: '.be/' -%}
+  {%- assign video_id = video_id[1] | split: '&' | first -%}
+  <div
+    id="YouTubeVideo-{{ section_id }}"
+    class="video-div"
+    data-type="youtube"
+    data-video-id="{{ video_id }}"></div>
+{%- endif -%}
+
+{%- if url contains 'vimeo.com' -%}
+  {%- assign video_id = url | split: '.com/' -%}
+  {%- assign video_id = video_id[1] | split: '/' | first -%}
+  <button type="button" id="VimeoTrigger-{{ section_id }}" class="vimeo-mobile-trigger medium-up--hide">
+    <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#323232" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
+  </button>
+  <div
+    id="Vimeo-{{ section_id }}"
+    class="video-div"
+    data-type="vimeo"
+    data-video-id="{{ video_id }}"></div>
+{%- endif -%}
+
+{%- if url contains '.mp4' or url contains '.MP4' -%}
+  <video
+    id="Mp4Video-{{ section_id }}"
+    class="video-div"
+    data-type="mp4"
+    src="{{ url }}"
+    loop muted playsinline autoplay></video>
+{%- endif -%}
