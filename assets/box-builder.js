@@ -129,8 +129,8 @@ fetch('/collections/customized-jewelry-the-jewelry?view=box-builder')
     }
 );
 
-function workOnClassAddToSubmitStep() {
-    console.log(" --------- Added the class, bxp-bldr-current")
+const workOnClassAddToSubmitStep = () => {
+    console.log(" -------- Added the class, bxp-bldr-current")
     console.log(" -------- customBxpId = ", customBxpId)
     if (customBxpId == undefined) return;
 
@@ -163,59 +163,159 @@ function workOnClassAddToSubmitStep() {
         /** --- Customized Box end --- */
 
         /** --- Customized Jewelry begin --- */
-        let selectedGift = bxpSelections.find(obj => {
-            return obj.step === 1                           //step 0
+        
+        let selectedGifts = bxpSelections.filter(obj => {
+            return obj.step === 1                          //step 1
         })
-        if (selectedGift != undefined) {
+        console.log(" -------- selectedGifts (arr) => ", selectedGifts);
+        let elWrapperCustomizedJewelry = document.querySelector("#custom-bldr-upload-photo-text .wrapper-customized-jewelry");
+
+        if (selectedGifts.length > 0) {
             console.log(" -------- customizedJewelryProducts => ", customizedJewelryProducts);
-            let giftId = selectedGift.id;
-            let jewelry = {};
+            let countSelectedCJProducts = 0;
+            
+            elWrapperCustomizedJewelry.classList.remove("active");
+            elWrapperCustomizedJewelry.querySelectorAll(".customized-jewelry-content.active").forEach(element => {
+                element.remove();
+            });
 
-            if (giftId.indexOf("input_") > -1) {
-                let giftProductId = Number(giftId.substring(6));
-                console.log(" -------- giftProductId => ", giftProductId);
-    
-                jewelry = customizedJewelryProducts.find(obj => {
-                    return obj.id == giftProductId;
-                })
-            } else {
-                let giftVariantId = giftId;
-                console.log(" -------- giftVariantId => ", giftVariantId);
-                jewelry = customizedJewelryProducts.find(obj => {
-                    return obj.variant_id == giftVariantId;
-                })
-            }            
+            for(const selectedGift of selectedGifts) {
+                let giftId = selectedGift.id;
+                let jewelry = {};
 
-            console.log(" -------- jewelry => ", jewelry);
-            let elWrapperCustomizedJewelry = document.querySelector("#custom-bldr-upload-photo-text .wrapper-customized-jewelry");
+                if (giftId.indexOf("input_") > -1) {
+                    let giftProductId = Number(giftId.substring(6));
+                    console.log(" -------- giftProductId => ", giftProductId);
+                    
+                    jewelry = customizedJewelryProducts.find(obj => {
+                        return obj.id == giftProductId;
+                    })
+                } else {
+                    let giftVariantId = giftId;
+                    console.log(" -------- giftVariantId => ", giftVariantId);
+                    jewelry = customizedJewelryProducts.find(obj => {
+                        return obj.variant_id == giftVariantId;
+                    })
+                }
 
-            if (jewelry != undefined) {
-                console.log(" -------- jewelry inside => ", jewelry);                
-                elWrapperCustomizedJewelry.classList.add("active");
+                console.log(" -------- jewelry => ", jewelry);
 
-                ///////////////////////////////
-                let elCustomizedJewelryImg = elWrapperCustomizedJewelry.querySelector(".product-info > img");
-                elCustomizedJewelryImg.src = jewelry.featured_image;
-                let elCustomizedJewelryTitle = elWrapperCustomizedJewelry.querySelector(".product-info > div > h3");
-                elCustomizedJewelryTitle.innerText = jewelry.title;
+                if (jewelry != undefined) {
+                    countSelectedCJProducts++;
+                    if(countSelectedCJProducts == 1)    elWrapperCustomizedJewelry.classList.add("active");
+                    
+                    let elTemplateCustomizedJewelry = elWrapperCustomizedJewelry.querySelector(".customized-jewelry-content.template");
+                    let elCustomizedJewelryContent = elTemplateCustomizedJewelry.cloneNode(true);
+                    elCustomizedJewelryContent.classList.remove("template");
 
-            } else {
-                elWrapperCustomizedJewelry.classList.remove("active");
+                    elCustomizedJewelryContent.classList.add("active");
+                    elCustomizedJewelryContent.classList.add("customized-jewelry-" + countSelectedCJProducts);
+                    
+                    elCustomizedJewelryContent.dataset.customizedJewelryIndex = countSelectedCJProducts;        //data-customized-jewelry-index
+                    
+                    ///////////////////////////////
+                    let elCustomizedJewelryImg = elCustomizedJewelryContent.querySelector(".product-info > img");
+                    elCustomizedJewelryImg.src = jewelry.featured_image;
+                    let elCustomizedJewelryTitle = elCustomizedJewelryContent.querySelector(".product-info > div > h3");
+                    elCustomizedJewelryTitle.innerText = jewelry.title;
+
+                    elWrapperCustomizedJewelry.append(elCustomizedJewelryContent);
+                    
+                }
             }
-
+        } else {
+            // elWrapperCustomizedJewelry.classList.remove("active");
         }
+
         /** --- Customized Jewelry end --- */
+
         /** --- GiftCard Text start --- */
-        let elWrapperAttrGiftcardText = document.querySelector("#custom-bldr-upload-photo-text .wrapper-attr_giftcard_text");
-        let elAttrGiftcardText = document.querySelector('input[name="attr_giftcard_text"]');
+        let elWrapperAttrGiftcardText = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_text");
+        let elWrapperAttrGiftcardFrom = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_from");
+        let elWrapperAttrGiftcardDeliveryTo = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_delivery_to");
+        
+        let elAttrGiftcardText = document.querySelector('textarea[name="attr_giftcard_text"]');
+        elAttrGiftcardText.setAttribute("attribute", "Message");
         elWrapperAttrGiftcardText.append(elAttrGiftcardText);
+        
+        let elAttrGiftcardFrom = document.querySelector('input[name="attr_giftcard_from"]');
+        elAttrGiftcardFrom.setAttribute("attribute", "From");
+        elWrapperAttrGiftcardFrom.prepend(elAttrGiftcardFrom);
+
+        let elAttrGiftcardDeliveryTo = document.querySelector('input[name="attr_giftcard_delivery_to"]');
+        elAttrGiftcardDeliveryTo.setAttribute("attribute", "Delivery to");
+        elWrapperAttrGiftcardDeliveryTo.prepend(elAttrGiftcardDeliveryTo);
 
         /** --- GiftCard Text start --- */
     }
 }
 
-function workOnClassRemovalToSubmitStep() {
+const workOnClassRemovalToSubmitStep = () => {
     console.log(" --------- Removed the class, bxp-bldr-current")
+}
+
+const updateCustomBoxPhoto = (file, i) => {
+    let elCustomPhoto = document.querySelector(".box-custom.photo-" + i);
+    if (file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.addEventListener("load", function () {
+            elCustomPhoto.innerHTML = '<img src="' + this.result + '" />';
+        });
+    } else {
+        elCustomPhoto.innerHTML = '';
+    }
+}
+
+const initBoxCustomPhotos = () => {
+    const cntBCPhotos = 3;
+    for (let i = 1; i <= cntBCPhotos; i++) {
+        let elBoxCustomPhoto = document.querySelector("input[name='properties[box_custom_photo_" + i + "]']");
+        elBoxCustomPhoto.setAttribute('id', "properties-box_custom_photo_" + i);
+        elBoxCustomPhoto.setAttribute('name', "properties[Photo " + i + " for Box Design]");
+        elBoxCustomPhoto.orderBox = i;
+        elBoxCustomPhoto.addEventListener('change', (e) => {
+            e = e || window.event;
+            let element  = e.target || e.srcElement;
+            const singleFile = element.files[0];    
+            updateCustomBoxPhoto(singleFile, element.orderBox);
+        }, false);
+    }
+}
+
+const updateCustomizedJewelryPhoto = (file, i) => {
+    let elCustomPhoto = document.querySelector(".customized-jewelry-content.customized-jewelry-" + i + " .product-info .upload-photo");
+    
+    if (file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.addEventListener("load", function () {
+            elCustomPhoto.innerHTML = '<img src="' + this.result + '" />';
+            let elProductName = document.createElement('span')
+            elProductName.innerHTML = elCustomPhoto.parentNode.querySelector("h3").innerHTML;
+            elProductName.style.textTransform = "lowercase";
+            
+            let elCJPhoto = document.getElementById("properties-customized_jewelry_photo_" + i);
+            elCJPhoto.setAttribute("name", "properties[Photo for " + elProductName.innerText + "]");
+        });
+    } else {
+        elCustomPhoto.innerHTML = "<span>Click to Upload Photo</span>";
+    }
+}
+
+const initCustomizedJewelryPhotos = () => {
+    const maxCustomizedJewelries = 5;
+    for (let i = 1; i <= maxCustomizedJewelries; i++) {
+        let elCJPhoto = document.querySelector("input[name='properties[customized_jewelry_photo_" + i +"]']");
+        elCJPhoto.setAttribute('id', "properties-customized_jewelry_photo_" + i);                   // to use id instead of name
+        elCJPhoto.orderCustomizedJewelry = i;
+        elCJPhoto.addEventListener('change', (e) => {
+            e = e || window.event;
+            let element  = e.target || e.srcElement;
+            let singleFile = element.files[0];
+            updateCustomizedJewelryPhoto(singleFile, element.orderCustomizedJewelry);               
+        }, false);
+    }
 }
 
 const putNextBtnInTop = () => {
@@ -247,8 +347,6 @@ const initCustomUploadPhotoText = () => {
         return;
 
     let elBldrSubmit = elsBldrSubmit[0];
-    // console.log(" -------- elsBldrSubmit => ", elsBldrSubmit);
-    // console.log(" -------- elBldrSubmit => ", elBldrSubmit);
 
     let elCustomUploadPhotoText = document.getElementById("custom-bldr-upload-photo-text");
     let elBldrSubmitContent = elBldrSubmit.querySelector(".bxp-step-content");
@@ -258,78 +356,72 @@ const initCustomUploadPhotoText = () => {
 }
 
 const initCustomizeSteps = () => {
-//     putNextBtnInTop();
+    initBoxCustomPhotos();
+    initCustomizedJewelryPhotos();
+    //     putNextBtnInTop();
     let elBldrSubmit = initCustomUploadPhotoText();
-
-    console.log(" -------- elBldrSubmit => ", elBldrSubmit);
-
-    let classWatcher = new ClassWatcher(elBldrSubmit, 'bxp-bldr-current', workOnClassAddToSubmitStep, workOnClassRemovalToSubmitStep)
-    console.log(" -------- classWatcher => ", classWatcher);
-    
+    let classWatcher = new ClassWatcher(elBldrSubmit, 'bxp-bldr-current', workOnClassAddToSubmitStep, workOnClassRemovalToSubmitStep);    
 }
 
 initCustomizeSteps();
 
 const openChooseFile = (index) => {
     console.log(" -------- index => ", index);
-    let elBoxCustomPhoto = document.querySelector("input[name='properties[box_custom_photo_" + index + "]']");
-    elBoxCustomPhoto.click();
+
+    // properties-box_custom_photo_
+    // const elBCPhoto = document.querySelector("input[name='properties[box_custom_photo_" + index + "]']");
+    const elBCPhoto = document.getElementById("properties-box_custom_photo_" + index);    
+    elBCPhoto.click();
 }
 
-const openChooseCustomizedJewelryPhoto = (index) => {
-    let elBoxCustomJewelryPhoto = document.querySelector("input[name='properties[customized_jewelry_photo]']");
-    elBoxCustomJewelryPhoto.click();
+const openChooseCustomizedJewelryPhoto = (el) => {
+    console.log(" -------- element ( - openChooseCustomizedJewelryPhoto - ) => ", el)
+    const index = el.parentNode.parentNode.parentNode.dataset.customizedJewelryIndex;
+    console.log(" -------- index => ", index);
+
+    // const elCJPhoto = document.querySelector("input[name='properties[customized_jewelry_photo]']");
+    // elCJPhoto.click();
+    const elCJPhoto = document.getElementById("properties-customized_jewelry_photo_" + index);
+    elCJPhoto.click();    
 }
 
-let elBoxCustomPhoto1 = document.querySelector("input[name='properties[box_custom_photo_1]']");
-let elBoxCustomPhoto2 = document.querySelector("input[name='properties[box_custom_photo_2]']");
-let elBoxCustomPhoto3 = document.querySelector("input[name='properties[box_custom_photo_3]']");
+let elAttrGiftcardText = document.querySelector('textarea[name="attr_giftcard_text"]');
+elAttrGiftcardText.addEventListener('keyup', (e) => {
+    e = e || window.event;
+    let element  = e.target || e.srcElement;
+    console.log(" -------- counter working ---");
+    console.log(element.value)
 
-let elBoxCustomJewelryPhoto = document.querySelector("input[name='properties[customized_jewelry_photo]']");
-
-elBoxCustomPhoto1.addEventListener('change', function () {
-    const singleFile = elBoxCustomPhoto1.files[0];    
-    updateCustomBoxPhoto(singleFile, 1);
-}, false);
-  
-elBoxCustomPhoto2.addEventListener('change', function () {
-    let singleFile = elBoxCustomPhoto2.files[0];
-    updateCustomBoxPhoto(singleFile, 2);
-}, false);
-
-elBoxCustomPhoto3.addEventListener('change', function () {
-    let singleFile = elBoxCustomPhoto3.files[0];
-    updateCustomBoxPhoto(singleFile, 3);
-}, false);
-
-const updateCustomBoxPhoto = (file, i) => {
-    let elCustomPhoto = document.querySelector(".box-custom.photo-" + i);
-    if (file) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.addEventListener("load", function () {
-            elCustomPhoto.innerHTML = '<img src="' + this.result + '" />';
-        });
+    let countField = document.getElementById("counter-field");
+    if ( element.value.length > 110 ) {
+        element.value = element.value.substring( 0, 110 );
+        
     } else {
-        elCustomPhoto.innerHTML = '';
+        countField.innerText = 110 - element.value.length;
     }
-}
-
-
-elBoxCustomJewelryPhoto.addEventListener('change', function () {
-    let singleFile = elBoxCustomJewelryPhoto.files[0];
-    updateCustomizedJewelryPhoto(singleFile);
 }, false);
 
-const updateCustomizedJewelryPhoto = (file) => {
-    let elCustomedPhoto = document.querySelector(".customized-jewelry-content .product-info .upload-photo");
-    if (file) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.addEventListener("load", function () {
-            elCustomedPhoto.innerHTML = '<img src="' + this.result + '" />';
-        });
-    } else {
-        elCustomedPhoto.innerHTML = "<span>Click to Upload Photo</span>";
+document.addEventListener('click', (e) => {
+    e = e || window.event;
+    let target = e.target || e.srcElement;
+
+    if(target.tagName == "DIV"){
+        if (target.classList.contains("bxp-summary-container")) {
+            console.log(" -------- remove product selected ");
+            console.log("clicked element => ", target);
+
+            let elsRemove = target.getElementsByClassName("bxp-thumbnail-remove");
+            console.log(" -------- elsRemove => ", elsRemove)
+            if (elsRemove.length > 0) {
+                elsRemove[0].click();
+            } else {
+                console.log(" -------- no element to remove");
+                let pid = target.getAttribute("pid");
+                console.log(" -------- pid => ", pid);
+                let elInput = $j("#bxp-bldr-wizard_container").find("input[product-id='"+pid+"']")
+                console.log(" -------- elInput => ", elInput);
+                customDeselect(elInput);
+            }
+        }
     }
-}
+})

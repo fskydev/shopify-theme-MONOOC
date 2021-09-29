@@ -1,62 +1,82 @@
 <div style="display: none" class="custom-bldr-wrapper">
-    
-    
-    <div id="custom-bldr-upload-photo-text" class="bxp-bldr-col-lg-8">
-        <div class="custom-bldr-title">
-            <!-- <h3>Upload Photos</h3> -->
-            <h3>Customize your box design</h3>            
-            <p></p>
-        </div>
-        <div class="wrapper-tiles">
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box box-custom photo-1" onclick="openChooseFile(1)"> 
-            {% comment %} uploaded {% endcomment %}
-            
-            </div>
-            <div class="box"></div>
-            <div class="box box-custom photo-2" onclick="openChooseFile(2)">
-            
-            </div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box box-custom photo-3" onclick="openChooseFile(3)">
-            
-            </div>
-            <div class="box"></div>
-        </div>
-        <div class="wrapper-customized-jewelry">
+    <div id="custom-bldr-upload-photo-text" >
+        <div class="" style="margin: auto;">
             <div class="custom-bldr-title">
                 <!-- <h3>Upload Photos</h3> -->
-                <h3>Upload Photo for Jewelry</h3>
-                <p></p>
+                <h3>Customize your box design</h3>            
+                <p>Note:click the "+" to upload your photo</p>
             </div>
-            <div class="customized-jewelry-content"> <!-- active --> 
-                <div class="product-info">
-                    <img src="//cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c_750x.gif">
-                    <div>
-                        <h3>
-                            product name
-                        </h3>
-                        <hr>
-                        <div class="upload-photo" onclick="openChooseCustomizedJewelryPhoto()">
-                            <span>Click to Upload Photo</span>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
+            <div class="wrapper-tiles">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box box-custom photo-1" onclick="openChooseFile(1)"> 
+                {% comment %} uploaded {% endcomment %}
                 
+                </div>
+                <div class="box"></div>
+                <div class="box box-custom photo-2" onclick="openChooseFile(2)">
+                
+                </div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box box-custom photo-3" onclick="openChooseFile(3)">
+                
+                </div>
+                <div class="box"></div>
             </div>
         </div>
-        <div class="custom-bldr-title">
-            <h3>GiftCard Text</h3>
-        </div>
-        <div class="wrapper-attr_giftcard_text">
-            
+        <div>
+            <div class="wrapper-customized-jewelry bxp-bldr-col-lg-8"> <!-- active -->
+                <div class="custom-bldr-title">
+                    <h3>Upload Photo for Jewelry</h3>
+                    <p></p>
+                </div>
+                <!-- customized jewelry template start -->
+                <div class="customized-jewelry-content template">  <!-- active customized-jewelry-1 cjp-1 cjp-2 cjp-3 cjp-4 cjp-5 -->
+                    <div class="product-info">
+                        <img src="//cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c_750x.gif">
+                        <div>
+                            <h3>
+                                product name
+                            </h3>
+                            <div class="upload-photo" onclick="openChooseCustomizedJewelryPhoto(this)"> <!-- data-customized-jewelry-index -->
+                                <span>Click to Upload Photo</span>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+                <!-- customized jewelry template end -->
+            </div>
+            <div class="wrapper-giftcard-message bxp-bldr-col-lg-8" style="margin: auto;">
+                <div>
+                    <h3>Write your message</h3>
+                    <hr/>
+                    <div class="wrapper-giftcard-image">
+                        <img style="width:100%;" src="{{ 'bg_image-handwrites_small.png' | asset_img_url: '300x' }}" />
+                    </div>
+                    <p>
+                        Your message will be handwritten by our team.<br>
+                        Please make sure you wrote everything as you'd like it to appear.
+                    </p>
+                </div>
+                <div>
+                    <p><span>Characters remaining:</span><span id="counter-field">110</span></p>
+                    <div class="wrapper-giftcard-attr_text">
+
+                    </div>
+                    <h4>From:</h4>
+                    <div class="wrapper-giftcard-attr_from">
+                        <span>(name)</span>
+                    </div>
+                    <h4>Delivery to:</h4>
+                    <div class="wrapper-giftcard-attr_delivery_to">
+                        <span>(name)</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
