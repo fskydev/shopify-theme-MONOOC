@@ -101,11 +101,17 @@ document.addEventListener('click', (e) => {
                 elsRemove[0].click();
             } else {
                 console.log(" -------- no element to remove");
-                let pid = target.getAttribute("pid");//40992103137461;                
+                let pid = target.getAttribute("pid");   //40992103137461;                
                 console.log(" -------- pid => ", pid);
                 let elInput = $j("#bxp-bldr-wizard_container").find("input[product-id='"+pid+"']")
                 console.log(" -------- elInput => ", elInput);
                 customDeselect(elInput);
+                let elInputPure = document.querySelector("input[product-id='"+pid+"']");
+                let indexStep = elInputPure.parentNode.parentNode.parentNode.parentNode.dataset.index;
+                console.log(" -------- indexStep => ", indexStep);
+                if(indexStep != undefined) {
+                    document.getElementById("bxp-steps").getElementsByClassName("bxp-step")[indexStep].click();
+                }
             }
         }
     }
@@ -129,129 +135,11 @@ fetch('/collections/customized-jewelry-the-jewelry?view=box-builder')
     }
 );
 
-const workOnClassAddToSubmitStep = () => {
-    console.log(" -------- Added the class, bxp-bldr-current")
-    console.log(" -------- customBxpId = ", customBxpId)
-    if (customBxpId == undefined) return;
-
-    let bxpSelectionsStr = localStorage.getItem("bxp_selections_" + customBxpId);
-    
-    if (bxpSelectionsStr != undefined && bxpSelectionsStr.length > 0) {
-
-        let bxpSelections = JSON.parse(bxpSelectionsStr);
-        console.log(" -------- bxpSelections => ", bxpSelections);
-        
-        /** --- Box begin --- */
-        let selectedBoxVariant = bxpSelections.find(obj => {
-            return obj.step === 0                           //step 0
-        })
-        if (selectedBoxVariant != undefined) {
-            console.log(" -------- boxProducts => ", boxProducts);
-            let boxVariantId = selectedBoxVariant.id;
-
-            console.log(" -------- boxVariantId => ", boxVariantId);
-
-            let boxProduct = boxProducts.find(obj => {
-                return obj.variant_id == boxVariantId;
-            })
-
-            console.log(" -------- boxProduct => ", boxProduct);
-            
-            let elWrapperTiles = document.querySelector("#custom-bldr-upload-photo-text .wrapper-tiles");
-            elWrapperTiles.style.backgroundImage = "url(" + boxProduct.internal_image + ")";
-        }
-        /** --- Customized Box end --- */
-
-        /** --- Customized Jewelry begin --- */
-        
-        let selectedGifts = bxpSelections.filter(obj => {
-            return obj.step === 1                          //step 1
-        })
-        console.log(" -------- selectedGifts (arr) => ", selectedGifts);
-        let elWrapperCustomizedJewelry = document.querySelector("#custom-bldr-upload-photo-text .wrapper-customized-jewelry");
-
-        if (selectedGifts.length > 0) {
-            console.log(" -------- customizedJewelryProducts => ", customizedJewelryProducts);
-            let countSelectedCJProducts = 0;
-            
-            elWrapperCustomizedJewelry.classList.remove("active");
-            elWrapperCustomizedJewelry.querySelectorAll(".customized-jewelry-content.active").forEach(element => {
-                element.remove();
-            });
-
-            for(const selectedGift of selectedGifts) {
-                let giftId = selectedGift.id;
-                let jewelry = {};
-
-                if (giftId.indexOf("input_") > -1) {
-                    let giftProductId = Number(giftId.substring(6));
-                    console.log(" -------- giftProductId => ", giftProductId);
-                    
-                    jewelry = customizedJewelryProducts.find(obj => {
-                        return obj.id == giftProductId;
-                    })
-                } else {
-                    let giftVariantId = giftId;
-                    console.log(" -------- giftVariantId => ", giftVariantId);
-                    jewelry = customizedJewelryProducts.find(obj => {
-                        return obj.variant_id == giftVariantId;
-                    })
-                }
-
-                console.log(" -------- jewelry => ", jewelry);
-
-                if (jewelry != undefined) {
-                    countSelectedCJProducts++;
-                    if(countSelectedCJProducts == 1)    elWrapperCustomizedJewelry.classList.add("active");
-                    
-                    let elTemplateCustomizedJewelry = elWrapperCustomizedJewelry.querySelector(".customized-jewelry-content.template");
-                    let elCustomizedJewelryContent = elTemplateCustomizedJewelry.cloneNode(true);
-                    elCustomizedJewelryContent.classList.remove("template");
-
-                    elCustomizedJewelryContent.classList.add("active");
-                    elCustomizedJewelryContent.classList.add("customized-jewelry-" + countSelectedCJProducts);
-                    
-                    elCustomizedJewelryContent.dataset.customizedJewelryIndex = countSelectedCJProducts;        //data-customized-jewelry-index
-                    
-                    ///////////////////////////////
-                    let elCustomizedJewelryImg = elCustomizedJewelryContent.querySelector(".product-info > img");
-                    elCustomizedJewelryImg.src = jewelry.featured_image;
-                    let elCustomizedJewelryTitle = elCustomizedJewelryContent.querySelector(".product-info > div > h3");
-                    elCustomizedJewelryTitle.innerText = jewelry.title;
-
-                    elWrapperCustomizedJewelry.append(elCustomizedJewelryContent);
-                    
-                }
-            }
-        } else {
-            // elWrapperCustomizedJewelry.classList.remove("active");
-        }
-
-        /** --- Customized Jewelry end --- */
-
-        /** --- GiftCard Text start --- */
-        let elWrapperAttrGiftcardText = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_text");
-        let elWrapperAttrGiftcardFrom = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_from");
-        let elWrapperAttrGiftcardDeliveryTo = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_delivery_to");
-        
-        let elAttrGiftcardText = document.querySelector('textarea[name="attr_giftcard_text"]');
-        elAttrGiftcardText.setAttribute("attribute", "Message");
-        elWrapperAttrGiftcardText.append(elAttrGiftcardText);
-        
-        let elAttrGiftcardFrom = document.querySelector('input[name="attr_giftcard_from"]');
-        elAttrGiftcardFrom.setAttribute("attribute", "From");
-        elWrapperAttrGiftcardFrom.prepend(elAttrGiftcardFrom);
-
-        let elAttrGiftcardDeliveryTo = document.querySelector('input[name="attr_giftcard_delivery_to"]');
-        elAttrGiftcardDeliveryTo.setAttribute("attribute", "Delivery to");
-        elWrapperAttrGiftcardDeliveryTo.prepend(elAttrGiftcardDeliveryTo);
-
-        /** --- GiftCard Text start --- */
-    }
-}
-
-const workOnClassRemovalToSubmitStep = () => {
-    console.log(" --------- Removed the class, bxp-bldr-current")
+const addIconsToBxpProgress = () => {
+    const elBxpSteps = document.getElementById("bxp-steps");
+    elBxpSteps.querySelectorAll(".bxp-step").forEach(element => {
+        element.innerHTML = element.innerHTML + "<img />"
+    });
 }
 
 const updateCustomBoxPhoto = (file, i) => {
@@ -354,13 +242,158 @@ const initCustomUploadPhotoText = () => {
 
     return elBldrSubmit;
 }
+const updateOverlayIcons = () => {
+    let elsBldrItem = document.getElementsByClassName("bxp-bldr-item");
+    if (elsBldrItem.length > 0) {
+        for (const elBldrItem of elsBldrItem) {
+            let elOverlayIcon = elBldrItem.querySelector(".bxp-overlay-icon");
+            // console.log(" -------- elOverlayIcon => ", elOverlayIcon);
+            //elOverlayIcon.style.opacity = "1";
+
+            let elOwlSecondItem = elOverlayIcon.parentNode.parentNode.parentNode.getElementsByClassName("bxp-owl-item")[2];
+            if( elOwlSecondItem != undefined) {
+                // console.log(" -------- elOwlSecondItem => ", elOwlSecondItem);
+                let elSecondImg = elOwlSecondItem.querySelector("a");
+                let urlSecondImg = elSecondImg.getAttribute("image");
+
+                // console.log(" -------- urlSecondPicture => ", urlSecondImg);
+                elOverlayIcon.style.backgroundImage = "url('" + urlSecondImg + "')";
+            }
+        }
+    }
+}
+const workOnClassAddToSubmitStep = () => {
+    console.log(" -------- Added the class, bxp-bldr-current")
+    console.log(" -------- customBxpId = ", customBxpId)
+    if (customBxpId == undefined) return;
+
+    let bxpSelectionsStr = localStorage.getItem("bxp_selections_" + customBxpId);
+    
+    if (bxpSelectionsStr != undefined && bxpSelectionsStr.length > 0) {
+
+        let bxpSelections = JSON.parse(bxpSelectionsStr);
+        console.log(" -------- bxpSelections => ", bxpSelections);
+        
+        /** --- Box begin --- */
+        let selectedBoxVariant = bxpSelections.find(obj => {
+            return obj.step === 0                           //step 0
+        })
+        if (selectedBoxVariant != undefined) {
+            console.log(" -------- boxProducts => ", boxProducts);
+            let boxVariantId = selectedBoxVariant.id;
+
+            console.log(" -------- boxVariantId => ", boxVariantId);
+
+            let boxProduct = boxProducts.find(obj => {
+                return obj.variant_id == boxVariantId;
+            })
+
+            console.log(" -------- boxProduct => ", boxProduct);
+            
+            let elWrapperTiles = document.querySelector("#custom-bldr-upload-photo-text .wrapper-tiles");
+            elWrapperTiles.style.backgroundImage = "url(" + boxProduct.internal_image + ")";
+        }
+        /** --- Customized Box end --- */
+
+        /** --- Customized Jewelry begin --- */
+        
+        let selectedGifts = bxpSelections.filter(obj => {
+            return obj.step === 1                          //step 1
+        })
+        console.log(" -------- selectedGifts (arr) => ", selectedGifts);
+        let elWrapperCustomizedJewelry = document.querySelector("#custom-bldr-upload-photo-text .wrapper-customized-jewelry");
+
+        if (selectedGifts.length > 0) {
+            console.log(" -------- customizedJewelryProducts => ", customizedJewelryProducts);
+            let countSelectedCJProducts = 0;
+            
+            elWrapperCustomizedJewelry.classList.remove("active");
+            elWrapperCustomizedJewelry.querySelectorAll(".customized-jewelry-content.active").forEach(element => {
+                element.remove();
+            });
+
+            for(const selectedGift of selectedGifts) {
+                let giftId = selectedGift.id;
+                let jewelry = {};
+
+                if (giftId.indexOf("input_") > -1) {
+                    let giftProductId = Number(giftId.substring(6));
+                    console.log(" -------- giftProductId => ", giftProductId);
+                    
+                    jewelry = customizedJewelryProducts.find(obj => {
+                        return obj.id == giftProductId;
+                    })
+                } else {
+                    let giftVariantId = giftId;
+                    console.log(" -------- giftVariantId => ", giftVariantId);
+                    jewelry = customizedJewelryProducts.find(obj => {
+                        return obj.variant_id == giftVariantId;
+                    })
+                }
+
+                console.log(" -------- jewelry => ", jewelry);
+
+                if (jewelry != undefined) {
+                    countSelectedCJProducts++;
+                    if(countSelectedCJProducts == 1)    elWrapperCustomizedJewelry.classList.add("active");
+                    
+                    let elTemplateCustomizedJewelry = elWrapperCustomizedJewelry.querySelector(".customized-jewelry-content.template");
+                    let elCustomizedJewelryContent = elTemplateCustomizedJewelry.cloneNode(true);
+                    elCustomizedJewelryContent.classList.remove("template");
+
+                    elCustomizedJewelryContent.classList.add("active");
+                    elCustomizedJewelryContent.classList.add("customized-jewelry-" + countSelectedCJProducts);
+                    
+                    elCustomizedJewelryContent.dataset.customizedJewelryIndex = countSelectedCJProducts;        //data-customized-jewelry-index
+                    
+                    ///////////////////////////////
+                    let elCustomizedJewelryImg = elCustomizedJewelryContent.querySelector(".product-info > img");
+                    elCustomizedJewelryImg.src = jewelry.featured_image;
+                    let elCustomizedJewelryTitle = elCustomizedJewelryContent.querySelector(".product-info > div > h3");
+                    elCustomizedJewelryTitle.innerText = jewelry.title;
+
+                    elWrapperCustomizedJewelry.append(elCustomizedJewelryContent);                    
+                }
+            }
+        } else {
+            // elWrapperCustomizedJewelry.classList.remove("active");
+        }
+
+        /** --- Customized Jewelry end --- */
+
+        /** --- GiftCard Text start --- */
+        let elWrapperAttrGiftcardText = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_text");
+        let elWrapperAttrGiftcardFrom = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_from");
+        let elWrapperAttrGiftcardDeliveryTo = document.querySelector("#custom-bldr-upload-photo-text .wrapper-giftcard-attr_delivery_to");
+        
+        let elAttrGiftcardText = document.querySelector('textarea[name="attr_giftcard_text"]');
+        elAttrGiftcardText.setAttribute("attribute", "Message");
+        elWrapperAttrGiftcardText.append(elAttrGiftcardText);
+        
+        let elAttrGiftcardFrom = document.querySelector('input[name="attr_giftcard_from"]');
+        elAttrGiftcardFrom.setAttribute("attribute", "From");
+        elWrapperAttrGiftcardFrom.prepend(elAttrGiftcardFrom);
+
+        let elAttrGiftcardDeliveryTo = document.querySelector('input[name="attr_giftcard_delivery_to"]');
+        elAttrGiftcardDeliveryTo.setAttribute("attribute", "Delivery to");
+        elWrapperAttrGiftcardDeliveryTo.prepend(elAttrGiftcardDeliveryTo);
+
+        /** --- GiftCard Text start --- */
+    }
+}
+
+const workOnClassRemovalToSubmitStep = () => {
+    console.log(" --------- Removed the class, bxp-bldr-current")
+}
 
 const initCustomizeSteps = () => {
+    addIconsToBxpProgress();
     initBoxCustomPhotos();
     initCustomizedJewelryPhotos();
     //     putNextBtnInTop();
+    updateOverlayIcons()
     let elBldrSubmit = initCustomUploadPhotoText();
-    let classWatcher = new ClassWatcher(elBldrSubmit, 'bxp-bldr-current', workOnClassAddToSubmitStep, workOnClassRemovalToSubmitStep);    
+    let classWatcher = new ClassWatcher(elBldrSubmit, 'bxp-bldr-current', workOnClassAddToSubmitStep, workOnClassRemovalToSubmitStep);
 }
 
 initCustomizeSteps();
@@ -400,28 +433,3 @@ elAttrGiftcardText.addEventListener('keyup', (e) => {
         countField.innerText = 110 - element.value.length;
     }
 }, false);
-
-document.addEventListener('click', (e) => {
-    e = e || window.event;
-    let target = e.target || e.srcElement;
-
-    if(target.tagName == "DIV"){
-        if (target.classList.contains("bxp-summary-container")) {
-            console.log(" -------- remove product selected ");
-            console.log("clicked element => ", target);
-
-            let elsRemove = target.getElementsByClassName("bxp-thumbnail-remove");
-            console.log(" -------- elsRemove => ", elsRemove)
-            if (elsRemove.length > 0) {
-                elsRemove[0].click();
-            } else {
-                console.log(" -------- no element to remove");
-                let pid = target.getAttribute("pid");
-                console.log(" -------- pid => ", pid);
-                let elInput = $j("#bxp-bldr-wizard_container").find("input[product-id='"+pid+"']")
-                console.log(" -------- elInput => ", elInput);
-                customDeselect(elInput);
-            }
-        }
-    }
-})
