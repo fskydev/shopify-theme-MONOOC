@@ -75,7 +75,11 @@
     color: #fff;
 }
 
-
+@media only screen and (max-width:991px){
+    #bxp-bldr-wizard_container #bxp-bldr-middle-wizard .bxp-step-box .bxp-step-box-list {
+        display: none;
+    }
+}
 #bxp-bldr-middle-wizard .bxp-thumbnail-qty {
     border-radius: 50%;
     width: 20px;
@@ -237,9 +241,12 @@
     color: black;
     font-weight: 800;
 
-    padding-left: 12px;
-    padding-right: 12px;
+    /* padding-left: 12px;
+    padding-right: 12px; */
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
 .bxp-step-content .bxp-bldr-item label .bxp-bldr-item_price .bxp-bldr-add-text {
     color: black;
     font-weight: 900;
@@ -253,16 +260,25 @@ label select.bxp-bldr-form-control {
     border-radius: 20px;
     border: 2px solid purple;
 }
-
+@media only screen and (max-width:589px){
+    label select.bxp-bldr-form-control {
+        padding: 5px;
+        height: 30px;
+        font-size: 12px !important;
+        margin-top: 16px;
+    }    
+}
 label .bxp-bldr-qty-down {
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    /* width: 30px;
+    height: 30px; */
+    width: 25px;
+    height: 25px;
     background: #d1baf2;
     border: 2px solid #140030;
     padding: 0px;
     color: #140030;
-    font-size: 40px;
+    font-size: 39px; /*40px*/
     line-height: 0.4;
     margin-bottom: 0px;
     vertical-align: middle;
@@ -272,13 +288,14 @@ label .bxp-bldr-qty-down {
 
 label .bxp-bldr-qty-up {
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background: #d1baf2;
     border: 2px solid #140030;
     padding: 0px;
     color: #140030;
-    font-size: 36px;
+    /* font-size: 36px; */
+    font-size: 30px;
     line-height: 0.4;
     margin-bottom: 1px;
     vertical-align: middle;
@@ -286,6 +303,42 @@ label .bxp-bldr-qty-up {
     padding-left: 2px;
 }
 
+@media only screen and (max-width:439px){
+    label .bxp-bldr-qty-down {
+        width: 20px;
+        height: 20px;
+        font-size: 30px;
+        padding-left: 3px;
+    }
+    label .bxp-bldr-qty-up {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        padding-top: 4px;
+    }
+    .bxp-step-content .bxp-bldr-item label .bxp-bldr-item_price {
+        letter-spacing: 1px;
+        padding: 2px;
+        font-size: 10px;
+    }
+}
+@media only screen and (max-width:320px){
+    .bxp-step-content .bxp-bldr-item label .bxp-bldr-item_price {
+        letter-spacing: 0px;
+    }
+    .bxp-step-content .bxp-bldr-item label .bxp-bldr-item_price,
+    .bxp-step-content .bxp-bldr-item label .bxp-bldr-item_price .bxp-bldr-add-text {
+        font-weight: 700;
+    }
+}
+@media only screen and (max-width:284px){
+    label .bxp-bldr-qty-down {
+        margin-right: 1px;
+    }
+    label .bxp-bldr-qty-up {
+        margin-left: 1px;
+    }
+}
 button.bxp-deselect {
     border-radius: 50%;
     width: 30px;
@@ -441,6 +494,11 @@ button.bxp-deselect {
 .wrapper-customized-jewelry {
     width: 60vw;
 }
+@media only screen and (max-width:991px){
+    .wrapper-customized-jewelry {
+        width: 100vw;
+    }
+}
 .wrapper-customized-jewelry .customized-jewelry-content {
     display: none;
 }
@@ -461,7 +519,14 @@ button.bxp-deselect {
     width: 0;
     padding: 25px;
 }
-
+@media only screen and (max-width:991px){
+    .wrapper-customized-jewelry.active .customized-jewelry-content .product-info > img,
+    .wrapper-customized-jewelry.active .customized-jewelry-content .product-info > div {
+        flex: 1 1 0;
+        width: 0;
+        padding: 10px;
+    }
+}
 .wrapper-customized-jewelry.active .customized-jewelry-content .product-info div > h3 {
     font-size: 16px;
     margin-bottom: 5px;
@@ -519,6 +584,11 @@ button.bxp-deselect {
     padding-top: 30px;
     background-color: #eceefa;
     width: 60vw;
+}
+@media only screen and (max-width:991px){
+    .wrapper-giftcard-message {
+        width: 100vw;
+    }
 }
 .wrapper-giftcard-message > div {
     flex: 1 1 0;
